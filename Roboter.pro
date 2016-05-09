@@ -10,7 +10,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Roboter
 TEMPLATE = app
-
+LIBS    += -lOpengl32
 
 SOURCES += main.cpp\
         mainwindow.cpp \
