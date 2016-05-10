@@ -8,7 +8,7 @@
 #include "table.h"
 #include "kugel.h"
 #include "quader.h"
-#include "robotarm.h"
+#include "robot.h"
 
 class OGLWidget : public QOpenGLWidget,
                   protected QOpenGLFunctions
@@ -60,12 +60,13 @@ protected:
     double beta;
     int kreisHoehe;
     int kreisBreite;
+    int breitenCounter;
     quader q;
     bool qubeTop;
     int qubeCounter;
     float s;
     float h;
-    robotarm robot;
+    robot roboter;
     QTimer* animtimer; // Timer needed to step animation every x msec
     int animstep;      // Current animation step (used to rotate triangle
 };

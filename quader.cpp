@@ -16,6 +16,26 @@ quader::quader()
     rotx = 0;
     roty = 0;
     rotz = 0;
+    endp1 = new float[3];
+    endp2 = new float[3];
+    endp3 = new float[3];
+    endp4 = new float[3];
+
+    endp1[0] = 0;
+    endp1[1] = 0;
+    endp1[2] = 0;
+
+    endp2[0] = 0;
+    endp2[1] = 0;
+    endp2[2] = 0;
+
+    endp3[0] = 0;
+    endp3[1] = 0;
+    endp3[2] = 0;
+
+    endp4[0] = 0;
+    endp4[1] = 0;
+    endp4[2] = 0;
 }
 
 void quader::drawGroundorTop(float s, float h){
@@ -60,6 +80,11 @@ void quader::drawGroundorTop(float s, float h){
        quad3 = rotm.rotatez(1.0,quad3[0],quad3[1],quad3[2], rotz);
        quad4 = rotm.rotatez(1.0,quad4[0],quad4[1],quad4[2], rotz);
    }
+
+   endp1 = quad1;
+   endp2 = quad2;
+   endp3 = quad3;
+   endp4 = quad4;
 
    glBegin(GL_QUADS);
     glColor3f(red, yellow, blue);
@@ -128,11 +153,6 @@ void quader::drawQuads(float s, float h){
        quad4 = rotm.rotatez(1.0,quad4[0],quad4[1],quad4[2], rotz);
    }
 
-   std::cout << "x1: " << quad1[0] << " y1: " << quad1[1] << " z1: " << quad1[2] << std::endl;
-   std::cout << "x2: " << quad2[0] << " y2: " << quad2[1] << " z2: " << quad2[2] << std::endl;
-   std::cout << "x3: " << quad3[0] << " y3: " << quad3[1] << " z3: " << quad3[2] << std::endl;
-   std::cout << "x4: " << quad4[0] << " y4: " << quad4[1] << " z4: " << quad4[2] << std::endl << std::endl;
-
    glBegin(GL_QUADS);
     glColor3f(red, yellow, blue);
     glVertex3f(dx + quad1[0], dy + quad1[1], dz + quad1[2]);
@@ -166,7 +186,6 @@ void quader::drawCube(float r, float y, float b, float s, float h, float dx, flo
     if(top == true){
         drawGroundorTop(s, h);
     }
-
 }
 
 void quader::redrawCube(){
@@ -176,16 +195,16 @@ void quader::redrawCube(){
 
 void quader::rotateX(float rotx){
     this->rotx = rotx;
-    redrawCube();
+ //   redrawCube();
 }
 
 void quader::rotateY(float roty){
     this->roty = roty;
-    redrawCube();
+   // redrawCube();
 }
 
 void quader::rotateZ(float rotz){
     this->rotz = rotz;
-    redrawCube();
+   // redrawCube();
 }
 

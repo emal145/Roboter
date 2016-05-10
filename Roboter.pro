@@ -17,9 +17,10 @@ SOURCES += main.cpp\
     oglwidget.cpp \
     table.cpp \
     kugel.cpp \
-    robotarm.cpp \
     quader.cpp \
-    rotationsmatrix.cpp
+    rotationsmatrix.cpp \
+    robotarm.cpp \
+    robot.cpp
 
 HEADERS  += mainwindow.h \
     oglwidget.h \
@@ -27,6 +28,7 @@ HEADERS  += mainwindow.h \
     kugel.h \
     robotarm.h \
     quader.h \
-    rotationsmatrix.h
+    rotationsmatrix.h \
+    robot.h
 
 FORMS    += mainwindow.ui

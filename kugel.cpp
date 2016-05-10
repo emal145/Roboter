@@ -1,6 +1,6 @@
 #include "kugel.h"
 #include <math.h>
-
+#include <iostream>
 
 
 kugel::kugel(float r, float g, float b){
@@ -8,137 +8,104 @@ kugel::kugel(float r, float g, float b){
     green = g;
     blue = b;
     rotm = rotationsmatrix();
+    dx = 0;
+    dy = 0;
+    dz = 0;
     rotx = 0;
     roty = 0;
     rotz = 0;
+    rotr = 0;
 }
 
-void kugel::drawQuad(float radius, float dx, float dy, float dz, float alpha, float beta, float rotx, float roty, float rotz){
+void kugel::drawQuad(float radius, float dx, float dy, float dz, float alpha, float beta){
 glBegin(GL_QUADS);
     glColor4f(red, green, blue, 1.0);
     float pi = 3.1415926;
-    float breite = 5; //10*pi/180;
+    float breite = 2; //10*pi/180;
 
-    float x1 = radius * cos(alpha  * pi /180) * cos(beta  * pi /180);
-    float y1 = radius * sin(beta * pi /180);
-    float z1 = radius * (-sin(alpha * pi /180)) * cos(beta * pi /180);
+    float *points1 = rotm.rotatez(1.0, radius, 0, 0, alpha);
+    points1 = rotm.rotatey(1.0, points1[0], points1[1], points1[2], beta);
 
-    float x2 = radius * cos((alpha+breite) * pi /180) * cos(beta * pi /180);
-    float y2 = radius * sin(beta * pi /180);
-    float z2 = radius * (-sin((alpha+breite) * pi /180)) * cos(beta * pi /180);
+    float *points2 = rotm.rotatez(1.0, radius, 0, 0, alpha+breite);
+    points2 = rotm.rotatey(1.0, points2[0], points2[1], points2[2], beta);
 
-    float x3 = radius * cos((alpha+breite) * pi /180) * cos((beta+breite) * pi /180);
-    float y3 = radius * sin((beta+breite) * pi /180);
-    float z3 = radius * (-sin((alpha+breite)) * pi /180) * cos((beta+breite) * pi /180);
+    float *points3 = rotm.rotatez(1.0, radius, 0, 0, alpha+breite);
+    points3 = rotm.rotatey(1.0, points3[0], points3[1], points3[2], beta+breite);
 
-    float x4 = radius * cos(alpha * pi /180) * cos((beta+breite) * pi /180);
-    float y4 = radius * sin((beta+breite) * pi /180);
-    float z4 = radius * (-sin(alpha * pi /180)) * cos((beta+breite) * pi /180);
+    float *points4 = rotm.rotatez(1.0, radius, 0, 0, alpha);
+    points4 = rotm.rotatey(1.0, points4[0], points4[1], points4[2], beta+breite);
 
+    float* transd = new float[3];
+    transd[0] = dx;
+    transd[1] = dy;
+    transd[2] = dz;
 
-    if(rotx != 0.0){
-        float *points =  rotm.rotateX(0,x1,y1,z1,rotx);
-        float *points2 =  rotm.rotateX(0,x2,y2,z2,rotx);
-        float *points3 =  rotm.rotateX(0,x3,y3,z3,rotx);
-        float *points4 =  rotm.rotateX(0,x4,y4,z4,rotx);
-
-        x1 = points[0];
-        y1 = points[1];
-        z1 = points[2];
-
-        x2 = points2[0];
-        y2 = points2[1];
-        z2 = points2[2];
-
-        x3 = points2[0];
-        y3 = points2[1];
-        z3 = points2[2];
-
-        x4 = points4[0];
-        y4 = points4[1];
-        z4 = points4[2];
+    /*if(rotx != 0){
+       transd = rotm.rotateX(rotr, dx, dy,dz,360-rotx);
     }
-    if(roty != 0.0){
-        float *points =  rotm.rotatey(0,x1,y1,z1,roty);
-        float *points2 =  rotm.rotatey(0,x2,y2,z2,roty);
-        float *points3 =  rotm.rotatey(0,x3,y3,z3,roty);
-        float *points4 =  rotm.rotatey(0,x4,y4,z4,roty);
-
-        x1 = points[0];
-        y1 = points[1];
-        z1 = points[2];
-
-        x2 = points2[0];
-        y2 = points2[1];
-        z2 = points2[2];
-
-        x3 = points2[0];
-        y3 = points2[1];
-        z3 = points2[2];
-
-        x4 = points4[0];
-        y4 = points4[1];
-        z4 = points4[2];
+    if(roty != 0){
+       transd = rotm.rotatey(rotr, dx, dy,dz,360-roty);
     }
-    if(rotz != 0.0){
-        float *points =  rotm.rotatez(0,x1,y1,z1,rotz);
-        float *points2 =  rotm.rotatez(0,x2,y2,z2,rotz);
-        float *points3 =  rotm.rotatez(0,x3,y3,z3,rotz);
-        float *points4 =  rotm.rotatez(0,x4,y4,z4,rotz);
+    if(rotz != 0){
+       transd = rotm.rotatez(rotr, dx, dy,dz,360-rotz);
+    }*/
 
-        x1 = points[0];
-        y1 = points[1];
-        z1 = points[2];
+    float x1 = points1[0];
+    float y1 = points1[1];
+    float z1 = points1[2];
 
-        x2 = points2[0];
-        y2 = points2[1];
-        z2 = points2[2];
+    float x2 = points2[0];
+    float y2 = points2[1];
+    float z2 = points2[2];
 
-        x3 = points2[0];
-        y3 = points2[1];
-        z3 = points2[2];
+    float x3 = points3[0];
+    float y3 = points3[1];
+    float z3 = points3[2];
 
-        x4 = points4[0];
-        y4 = points4[1];
-        z4 = points4[2];
-    }
+    float x4 = points4[0];
+    float y4 = points4[1];
+    float z4 = points4[2];
 
-    glVertex3f(dx + x1, dy + y1, dz + z1);
-    glVertex3f(dx + x2, dy + y2, dz + z2);
-    glVertex3f(dx + x3, dy + y3, dz + z3);
-    glVertex3f(dx + x4, dy + y4, dz + z4);
+
+    glVertex3f(transd[0] + x1, transd[1] + y1, transd[2] + z1);
+    glVertex3f(transd[0] + x2, transd[1] + y2, transd[2] + z2);
+    glVertex3f(transd[0] + x3, transd[1] + y3, transd[2] + z3);
+    glVertex3f(transd[0] + x4, transd[1] + y4, transd[2] +z4);
+
 
 }
 
- void kugel::drawKugel(float radius, float x, float y, float z, int i, int j){
-     drawKugel(radius, x, y, z, i, j, 0.0f, 0.0f, 0.0f);
- }
-
- void kugel::drawKugel(float radius, float x, float y, float z, int i, int j, float rotx, float roty, float rotz){
-
-        double alpha = 0;
-        double beta = -90;
+ void kugel::drawKugel(float radius, float x, float y, float z, int kreisHoehe, int kreisBreite){
+        double alpha = 270;
+        double beta = 0.01;
 
         //beta = z achse, alpha = y achse
-        while(beta <=i){
-               alpha = 0.0;
-            while(alpha <= j){
-                drawQuad(radius, x, y, z, alpha, beta, rotx, roty, rotz);
-                alpha+= 5;
-            }
+        while(alpha >= kreisHoehe){
+               beta = 0.0;
+             int teilBreite = 360;
+             if(alpha <= kreisHoehe + 2){
+                 teilBreite = 360 - kreisBreite;
+             }
 
-            beta += 5;
+            while(beta <= teilBreite){
+             drawQuad(radius, x, y, z, alpha, beta);
+             beta+= 2;
+            }
+            alpha -= 2;
       }
    }
 
- void kugel::setRotationX(float rotx){
+ void kugel::setRotationX(float radius,float rotx){
      this->rotx = rotx;
+     this->rotr = radius;
  }
 
- void kugel::setRotationY(float roty){
+ void kugel::setRotationY(float radius, float roty){
      this->roty = roty;
+      this->rotr = radius;
  }
 
- void kugel::setRotationZ(float rotz){
+ void kugel::setRotationZ(float radius, float rotz){
      this->rotz = rotz;
+      this->rotr = radius;
  }

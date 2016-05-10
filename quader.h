@@ -12,6 +12,10 @@ public:
     void rotateX(float rotx);
     void rotateY(float roty);
     void rotateZ(float rotz);
+    float* endp1;
+    float* endp2;
+    float* endp3;
+    float* endp4;
 
 
 private:
