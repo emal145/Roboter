@@ -20,7 +20,6 @@ kugel::kugel(float r, float g, float b){
 void kugel::drawQuad(float radius, float dx, float dy, float dz, float alpha, float beta){
 glBegin(GL_QUADS);
     glColor4f(red, green, blue, 1.0);
-    float pi = 3.1415926;
     float breite = 2; //10*pi/180;
 
     float *points1 = rotm.rotatez(1.0, radius, 0, 0, alpha);
@@ -35,20 +34,20 @@ glBegin(GL_QUADS);
     float *points4 = rotm.rotatez(1.0, radius, 0, 0, alpha);
     points4 = rotm.rotatey(1.0, points4[0], points4[1], points4[2], beta+breite);
 
-    float* transd = new float[3];
-    transd[0] = dx;
-    transd[1] = dy;
-    transd[2] = dz;
-
-    /*if(rotx != 0){
-       transd = rotm.rotateX(rotr, dx, dy,dz,360-rotx);
+    if(rotx != 0){
+      // transd = rotm.rotateX(rotr, dx, dy,dz,360-rotx);
     }
     if(roty != 0){
-       transd = rotm.rotatey(rotr, dx, dy,dz,360-roty);
+      // transd = rotm.rotatey(rotr, dx, dy,dz,360-roty);
     }
     if(rotz != 0){
-       transd = rotm.rotatez(rotr, dx, dy,dz,360-rotz);
-    }*/
+        points1 = rotm.rotatez(1.0, points1[0], rotr+points1[1],points1[2],rotz);
+        points2 = rotm.rotatez(1.0, points2[0], rotr+points2[1],points2[2],rotz);
+        points3 = rotm.rotatez(1.0, points3[0], rotr+points3[1],points3[2],rotz);
+        points4 = rotm.rotatez(1.0, points4[0], rotr+points4[1],points4[2],rotz);
+
+        dy = dy - rotr;
+    }
 
     float x1 = points1[0];
     float y1 = points1[1];
@@ -67,10 +66,10 @@ glBegin(GL_QUADS);
     float z4 = points4[2];
 
 
-    glVertex3f(transd[0] + x1, transd[1] + y1, transd[2] + z1);
-    glVertex3f(transd[0] + x2, transd[1] + y2, transd[2] + z2);
-    glVertex3f(transd[0] + x3, transd[1] + y3, transd[2] + z3);
-    glVertex3f(transd[0] + x4, transd[1] + y4, transd[2] +z4);
+    glVertex3f(dx + x1, dy + y1, dz + z1);
+    glVertex3f(dx + x2, dy + y2, dz + z2);
+    glVertex3f(dx + x3, dy + y3, dz + z3);
+    glVertex3f(dx + x4, dy + y4, dz + z4);
 
 
 }
@@ -78,6 +77,8 @@ glBegin(GL_QUADS);
  void kugel::drawKugel(float radius, float x, float y, float z, int kreisHoehe, int kreisBreite){
         double alpha = 270;
         double beta = 0.01;
+
+
 
         //beta = z achse, alpha = y achse
         while(alpha >= kreisHoehe){

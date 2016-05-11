@@ -44,7 +44,7 @@ float* rotationsmatrix::rotateX(float r, float x, float y, float z, float alpha)
      * --           --
      */
     float *rpoints = new float[3];
-    rpoints[0] = x;
+    rpoints[0] = r*x;
     rpoints[1] = y * cosToDegree(alpha) + z * (-sinToDegree(alpha));
     rpoints[2] = y * sinToDegree(alpha) + z * cosToDegree(alpha);
 
@@ -68,7 +68,7 @@ float* rotationsmatrix::rotatey(float r, float x, float y, float z, float beta){
     }
     float *rpoints = new float[3];
     rpoints[0] = x * cosToDegree(beta) + z * sinToDegree(beta);
-    rpoints[1] = y;
+    rpoints[1] = r*y;
     rpoints[2] = x * (-sinToDegree(beta)) + z * cosToDegree(beta);
 
     return rpoints;
@@ -93,7 +93,7 @@ float* rotationsmatrix::rotatez(float r, float x, float y, float z, float gamma)
     float *rpoints = new float[3];
     rpoints[0] = x * cosToDegree(gamma) + y * (-sinToDegree(gamma));
     rpoints[1] = x * sinToDegree(gamma) + y * cosToDegree(gamma);
-    rpoints[2] = z;
+    rpoints[2] = r*z;
 
     return rpoints;
 }
@@ -111,7 +111,7 @@ float* rotationsmatrix::nrotatey(float r, float x, float y, float z, float beta)
      */
     float *rpoints = new float[3];
     rpoints[0] = x * cosToDegree(beta) + z * sinToDegree(beta);
-    rpoints[1] = y;
+    rpoints[1] = r*y;
     rpoints[2] = x * (-sinToDegree(beta)) + z * cosToDegree(beta);
 
     return rpoints;
@@ -131,7 +131,7 @@ float* rotationsmatrix::nrotatez(float r, float x, float y, float z, float gamma
     float *rpoints = new float[3];
     rpoints[0] = x * cosToDegree(gamma) + y * sinToDegree(gamma);
     rpoints[1] = x * (-sinToDegree(gamma)) + y * cosToDegree(gamma);
-    rpoints[2] = z;
+    rpoints[2] = r*z;
 
     return rpoints;
 }

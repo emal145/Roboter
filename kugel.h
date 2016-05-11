@@ -9,7 +9,7 @@ class kugel
 {
 public:
     kugel(float r = 1.0, float g = 0.0, float b = 0.0);
-    void drawKugel(float radius, float x, float y, float z, int i, int j);
+    void drawKugel(float radius, float x, float y, float z, int kreisHoehe, int kreisBreite);
     void setRotationX(float radius, float rotx);
     void setRotationY(float radius,float roty);
     void setRotationZ(float radius,float rotz);

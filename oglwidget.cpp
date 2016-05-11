@@ -44,7 +44,7 @@ void OGLWidget::stepAnimation()
           qubeTop = true;
       }
       update();      // Trigger redraw of scene with paintGL
-      h = qubeCounter * (3.0f/180.0f);
+      h = qubeCounter * (3.0f/8640.0f);
       std::cout << "hoehe: " << kreisHoehe << std::endl;
       qubeCounter++;
       kreisBreite = kreisBreite - 15;

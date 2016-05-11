@@ -34,15 +34,15 @@ void robotarm::drawRobot(){
    }
 
    if(rotz != 0){
-     //quad.rotateZ(rotz);
+     quad.rotateZ(rotz);
      kug.setRotationZ(height,rotz);
    }
 
    quad.drawCube(0.8,0.3,0.5,width,height,x, y, z, true);
    if(rotz != 0){
-      // kug.drawKugel(width/2.0, x+(width/2.0), y+height, z, 360, 180);
+     kug.drawKugel(width/2.0, x, y+height, z, 90, 360);
     }else{
-       //kug.drawKugel(width/2.0, x+(width/2.0), y+height, z, 90, 360);
+     kug.drawKugel(width/2.0, x, y+height, z, 90, 360);
 
    }
 

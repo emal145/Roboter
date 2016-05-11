@@ -11,6 +11,7 @@ public:
 private:
     robotarm arm1;
     robotarm arm2;
+    robotarm arm3;
 };
 
 #endif // ROBOT_H
