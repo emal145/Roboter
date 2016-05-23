@@ -58,18 +58,10 @@ void quader::drawGroundorTop(float s, float h){
    float *quad4 = rotm.rotatey(1.0,x,0+h,z, 360.0f);
 
    if(rotx != 0){
-       quad1 = rotm.rotateX(1.0,quad1[0],quad1[1],quad1[2], rotx);
-       quad2 = rotm.rotateX(1.0,quad2[0],quad2[1],quad2[2], rotx);
-       quad3 = rotm.rotateX(1.0,quad3[0],quad3[1],quad3[2], rotx);
-       quad4 = rotm.rotateX(1.0,quad4[0],quad4[1],quad4[2], rotx);
-   }
+    }
 
    if(roty != 0){
-       quad1 = rotm.rotatey(1.0,quad1[0],quad1[1],quad1[2], roty);
-       quad2 = rotm.rotatey(1.0,quad2[0],quad2[1],quad2[2], roty);
-       quad3 = rotm.rotatey(1.0,quad3[0],quad3[1],quad3[2], roty);
-       quad4 = rotm.rotatey(1.0,quad4[0],quad4[1],quad4[2], roty);
-   }
+    }
 
    if(rotz != 0){
        quad1 = rotm.rotatez(1.0,quad1[0],rotr+quad1[1], quad1[2], rotz);
@@ -126,27 +118,30 @@ void quader::drawQuads(float s, float h){
    if(roty != 0){
    }
 
-   if(rotz != 0){
-       quad1 = rotm.rotatez(1.0,quad1[0],rotr + quad1[1],quad1[2], rotz);
-       quad2 = rotm.rotatez(1.0,quad2[0],rotr + quad2[1],quad2[2], rotz);
-       quad3 = rotm.rotatez(1.0,quad3[0],rotr + quad3[1],quad3[2], rotz);
-       quad4 = rotm.rotatez(1.0,quad4[0],rotr + quad4[1],quad4[2], rotz);
-   }
    glPushMatrix();
+   float jointheight = 0;
    if(this->armsCount != 0){
        for(int i = 0; i < this->armsCount; i++){
-           float jointheight = 0;
-            for(int k = 0; k < i; k++){
-                jointheight = jointheight + jointaddHeight[k];
-            }
-            std::cout << "height: " << jointheight << ", rot: " << rotationsZ[i] << ", arms: " << armsCount << std::endl;
+             if(i != 0){
+                   jointheight = jointaddHeight[i-1];
+              }
+
             glTranslatef(0.0, jointheight, 0.0);
-           glRotatef(rotationsZ[i], 0.0f, 0.0f, 1.0f);
-           }
+            glRotatef(rotationsZ[i], 0.0f, 0.0f, 1.0f);
+         }
      }
 
+   if(this->armsCount != 0){
+       jointheight = jointaddHeight[this->armsCount-1];
+   }
 
-   dx= 0;
+   if(counter == 1){
+   std::cout << "armsc: " << this->armsCount << ", jh: " << jointheight << std::endl;
+   }
+   glTranslatef(0.0, jointheight, 0.0);
+   glRotatef(rotz, 0.0f, 0.0f, 1.0f);
+
+   dx = 0;
    dy = 0;
    dz = 0;
    glBegin(GL_QUADS);
@@ -190,7 +185,7 @@ void quader::drawCube(float r, float y, float b, float s, float h, float dx, flo
 }
 
 void quader::redrawCube(){
-    drawCube(red, yellow, blue, s, h, dx, dy, dz, top);
+    //drawCube(red, yellow, blue, s, h, dx, dy, dz, top);
 }
 
 

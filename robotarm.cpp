@@ -95,12 +95,10 @@ void robotarm::rotateY(float radius, float roty){
 }
 
 void robotarm::rotateZ(float rotz){
-    if(rotz != 0){
-            this->rotz = rotz;
+      this->rotz = rotz;
         if(this->childArm != 0){
           childArm->rotateZfromParent(robotPosition, rotz, height);
        }
-    }
 }
 
 void robotarm::rotateZfromParent(int position, float rotz, float jointaddHeight){

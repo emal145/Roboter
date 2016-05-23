@@ -33,9 +33,9 @@ robot::robot()
  }
 
 void robot::drawRobot(){
-    //moveJoint(0, 45.0);
-    //moveJoint(1, 20.0);
-    //moveJoint(2, 30.0);
+    moveJoint(0, 45.0);
+    moveJoint(1, 20.0);
+    moveJoint(2, 30.0);
     for(int i = 0; i < nRobotarms; i++){
        robotarms[i].drawRobot();
     }
