@@ -7,6 +7,24 @@ kugel::kugel(float r, float g, float b){
     red = r;
     green = g;
     blue = b;
+    this->armCount = 0;
+    rotationZvalue = new float[0];
+    jointaddHeights = new float[0];
+
+    initialize();
+}
+
+kugel::kugel(float r, float g, float b, int armCounts){
+    red = r;
+    green = g;
+    blue = b;
+    this->armCount = armCounts;
+    rotationZvalue = new float[armCount];
+    jointaddHeights = new float[armCount];
+    initialize();
+}
+
+void kugel::initialize(){
     rotm = rotationsmatrix();
     dx = 0;
     dy = 0;
@@ -34,6 +52,8 @@ glBegin(GL_QUADS);
     float *points4 = rotm.rotatez(1.0, radius, 0, 0, alpha);
     points4 = rotm.rotatey(1.0, points4[0], points4[1], points4[2], beta+breite);
 
+    float newdy = dy;
+
     if(rotx != 0){
       // transd = rotm.rotateX(rotr, dx, dy,dz,360-rotx);
     }
@@ -46,8 +66,35 @@ glBegin(GL_QUADS);
         points3 = rotm.rotatez(1.0, points3[0], rotr+points3[1],points3[2],rotz);
         points4 = rotm.rotatez(1.0, points4[0], rotr+points4[1],points4[2],rotz);
 
-        dy = dy - rotr;
+        newdy = newdy - rotr;
     }
+    if(this->armCount != 0){
+    for(int i = 0; i < this->armCount; i++){
+            float rad;
+            if(rotationZvalue[i] != 0 && i == this->armCount-1){
+                rad = jointaddHeights[i];
+            }
+            else{
+                rad = 0;
+            }
+         if(i == 0){
+              if(rotationZvalue[0] != 0){
+                  points1 = rotm.rotatez(1.0,points1[0], rad + points1[1],points1[2], rotationZvalue[i]);
+                  points2 = rotm.rotatez(1.0,points2[0], rad + points2[1],points2[2], rotationZvalue[i]);
+                  points3 = rotm.rotatez(1.0,points3[0], rad + points3[1],points3[2], rotationZvalue[i]);
+                  points4 = rotm.rotatez(1.0,points4[0], rad + points4[1],points4[2], rotationZvalue[i]);
+                  newdy = newdy - rad;
+              }
+         }
+         else{
+            points1 = rotm.rotatez(1.0,points1[0], rad + points1[1],points1[2], rotationZvalue[i]);
+            points2 = rotm.rotatez(1.0,points2[0], rad + points2[1],points2[2], rotationZvalue[i]);
+            points3 = rotm.rotatez(1.0,points3[0], rad + points3[1],points3[2], rotationZvalue[i]);
+            points4 = rotm.rotatez(1.0,points4[0], rad + points4[1],points4[2], rotationZvalue[i]);
+            newdy = newdy - rad;
+            }
+         }
+      }
 
     float x1 = points1[0];
     float y1 = points1[1];
@@ -66,10 +113,10 @@ glBegin(GL_QUADS);
     float z4 = points4[2];
 
 
-    glVertex3f(dx + x1, dy + y1, dz + z1);
-    glVertex3f(dx + x2, dy + y2, dz + z2);
-    glVertex3f(dx + x3, dy + y3, dz + z3);
-    glVertex3f(dx + x4, dy + y4, dz + z4);
+    glVertex3f(dx + x1, newdy + y1, dz + z1);
+    glVertex3f(dx + x2, newdy + y2, dz + z2);
+    glVertex3f(dx + x3, newdy + y3, dz + z3);
+    glVertex3f(dx + x4, newdy + y4, dz + z4);
 
 
 }
@@ -109,4 +156,9 @@ glBegin(GL_QUADS);
  void kugel::setRotationZ(float radius, float rotz){
      this->rotz = rotz;
       this->rotr = radius;
+ }
+
+ void kugel::setRotationsZvalue(float* rotationZvalue, float* jointaddHeights){
+     this->rotationZvalue = &rotationZvalue[0];
+     this->jointaddHeights = &jointaddHeights[0];
  }

@@ -12,10 +12,10 @@ public:
     float* rotatez(float r, float x, float y, float z, float gamma);
     float* nrotatey(float r, float x, float y, float z, float beta);
     float* nrotatez(float r, float x, float y, float z, float gamma);
- private:
     float cosToDegree(float alpha);
     float sinToDegree(float alpha);
 
+private:
     float pi;
 };
 

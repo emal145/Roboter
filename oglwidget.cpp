@@ -115,7 +115,10 @@ void OGLWidget::initializeGL()
 
     // For wireframe replace GL_FILL with GL_LINE
     glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
-
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
 }
 
 void OGLWidget::paintGL()

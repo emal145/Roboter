@@ -8,17 +8,16 @@ class quader
 {
 public:
     quader();
+    quader(int armsCount, float robotdypos);
     void drawCube(float red, float yellow, float blue, float s, float h, float dx, float dy, float dz, bool top);
-    void rotateX(float rotx);
-    void rotateY(float roty);
-    void rotateZ(float rotz);
-    float* endp1;
-    float* endp2;
-    float* endp3;
-    float* endp4;
-
+    void rotateX(float radius, float rotx);
+    void rotateY(float radius,float roty);
+    void rotateZ(float radius,float rotz);
+    void setRotationsZvalue(float* rotationZvalue, float* jointaddHeights);
+   // void setJointAddHeightValue(int position, float height);
 
 private:
+    void initialize();
     void drawGroundorTop(float s, float h);
     void drawQuads(float s, float h);
     void redrawCube();
@@ -31,10 +30,16 @@ private:
     float dx;
     float dy;
     float dz;
+    float *rotationsZ;
+    float *jointaddHeight;
+    int armsCount;
+
     bool top;
     float rotx;
     float roty;
     float rotz;
+    float rotr;
+    float robotdypos;
 
 protected:
     rotationsmatrix rotm;

@@ -2,15 +2,45 @@
 
 robot::robot()
 {
-    arm1 = robotarm(0.3, 4.0, 5.0, 0.0, 0.0);
-    arm2 = robotarm(0.3, 2.0, 5.0, 4.3, 0.0);
-    arm2.rotateZ(0.0);
-    arm3 = robotarm(0.3, 1.0, 4.7, 6.3, 0.0);
-    arm3.rotateZ(90.0);
-}
+
+    width = 0.3;
+    height = 4.0;
+    nRobotarms = 3;
+    robotarms = new robotarm[nRobotarms];
+
+    x = 5;
+    y = -5;
+    z = 0;
+
+    //n-Roboterarme anlegen
+    float diffh = height;
+    float dy = 0;
+    for(int i = 0; i < nRobotarms; i++){
+       robotarms[i] = robotarm(width, height, x, y, z, i, dy);
+       dy = dy + height + width;
+       diffh = height - i;
+    }
+
+    //Jedem Arm einen Nachfolger zuweisen
+    for(int j = nRobotarms-1; j >= 0; j--){
+        //letzen arm den vorletzen arm hinzufügen
+        if((j-1) == 0){
+            robotarms[0].setChildArm(robotarms[j]);
+        }else{
+            robotarms[j-1].setChildArm(robotarms[j]);
+        }
+    }
+ }
 
 void robot::drawRobot(){
-    arm1.drawRobot();
-    arm2.drawRobot();
-    arm3.drawRobot();
+    //moveJoint(0, 45.0);
+    //moveJoint(1, 20.0);
+    //moveJoint(2, 30.0);
+    for(int i = 0; i < nRobotarms; i++){
+       robotarms[i].drawRobot();
+    }
+}
+
+void robot::moveJoint(int position, float rotZ){
+    robotarms[position].rotateZ(rotZ);
 }
