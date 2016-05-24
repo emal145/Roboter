@@ -17,9 +17,11 @@ public:
 
 private slots:
     void onChangeRotation( int dx, int dy, int dz );
+    int changeComboBox();
 
 private:
     Ui::MainWindow *ui;
+    int auswahl;
 
 
 

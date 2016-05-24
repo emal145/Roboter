@@ -102,6 +102,14 @@ void OGLWidget::resetKugel(){
     animtimer->start(1);
 }
 
+void OGLWidget::programmStart(int auswahl){
+ std::cout << "Übergabe: " << auswahl << std::endl;
+}
+
+void OGLWidget::programmStopp(){
+
+}
+
 void OGLWidget::initializeGL()
 {
     initializeOpenGLFunctions();
@@ -121,6 +129,7 @@ void OGLWidget::initializeGL()
     glLoadIdentity();
 }
 
+
 void OGLWidget::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -139,6 +148,7 @@ void OGLWidget::paintGL()
 
     k.drawKugel(2.0, -3.0,3.0,0.0, kreisHoehe, kreisBreite);
     q.drawCube(0.0,0.0,1.0,s,h,2,1,0, qubeTop);
+
 }
 
 void OGLWidget::resizeGL(int w, int h)
