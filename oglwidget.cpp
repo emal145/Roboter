@@ -88,11 +88,6 @@ void OGLWidget::resetRotation(){
     update();
 }
 
-void OGLWidget::resetZoom(){
-    zoom = 0;
-    update();
-}
-
 void OGLWidget::resetKugel(){
     kreisHoehe = 270;
     kreisBreite = 360;
@@ -120,8 +115,8 @@ void OGLWidget::setArm2Rotation(int rz){
     update();
 }
 
-void OGLWidget::programmStart(int auswahl){
- std::cout << "Übergabe: " << auswahl << std::endl;
+void OGLWidget::programmStart(){
+ std::cout << "Übergabe: "  << std::endl;
 }
 
 void OGLWidget::programmStopp(){

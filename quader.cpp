@@ -127,7 +127,7 @@ void quader::drawQuads(float s, float h){
    float *quad4 = rotm.rotatey(1.0,x,y,-z, counter*90.0f); //Unten rechts
 
    //Urpsrungskoordinaten als Matrix speichern um nach derm Zeichnen wieder zurückzusetzen
-   float jointheight = 0;
+    float jointheight = 0;
    //ab dem 2. Arm die Rotationen der vorgänger Arme mit einbeziehen
    if(this->armsPos != 0){
        for(int i = 0; i < this->armsPos; i++){
@@ -137,7 +137,9 @@ void quader::drawQuads(float s, float h){
               }
              //Urpsprung auf den jeweiligen Arm versetzen und Rotieren
             glTranslatef(0.0, jointheight, 0.0);
+            glTranslatef(0.0, -s/2, 0.0);
             glRotatef(rotationsZ[i], 0.0f, 0.0f, 1.0f);
+            glTranslatef(0.0, s/2, 0.0);
          }
      }
 
@@ -148,7 +150,9 @@ void quader::drawQuads(float s, float h){
 
    //Ursprung transformieren und die eigene rotation anwenden
    glTranslatef(0.0, jointheight, 0.0);
-   glRotatef(rotz, 0.0f, 0.0f, 1.0f);
+   glTranslatef(0.0, -s/2, 0.0);
+   glRotatef(rotz, 0.0f,0.0f, 1.0f);
+   glTranslatef(0.0, s/2, 0.0);
 
    glBegin(GL_QUADS);
     glColor3f(red, yellow, blue);

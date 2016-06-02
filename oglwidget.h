@@ -39,9 +39,8 @@ public slots:
     void setArm2Rotation(int rz);
     void stepAnimation();
     void resetRotation();
-    void resetZoom();
     void resetKugel();
-    void programmStart(int auswahl);
+    void programmStart();
     void programmStopp();
     // Set zoom factor
     void setZoom( int newzoom );

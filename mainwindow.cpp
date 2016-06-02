@@ -21,9 +21,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->resetK, SIGNAL(clicked(bool)), ui->glwidget, SLOT(resetKugel()));
     connect(ui->resetR, SIGNAL(clicked(bool)), ui->glwidget, SLOT(resetRotation()));
-    connect(ui->resetZ, SIGNAL(clicked(bool)), ui->glwidget, SLOT(resetZoom()));
     //Start + Stopp Button
-    connect(ui->start, SIGNAL(clicked(bool)), ui->glwidget, SLOT(programmStart(bool)));
+    connect(ui->start, SIGNAL(clicked(bool)), ui->glwidget, SLOT(programmStart()));
     connect(ui->stopp, SIGNAL(clicked(bool)), ui->glwidget, SLOT(programmStopp()));
 
     // Handle any rotation change requests from mouse dragging and key presses

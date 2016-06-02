@@ -37,7 +37,7 @@ void kugel::drawQuad(float radius, float dx, float dy, float dz, float alpha, fl
    float breite = 2; //10*pi/180;
 
     glPushMatrix();
-    glTranslatef(+dx,dy,dz);
+    glTranslatef(dx,dy,dz);
 
     float *points1 = rotm.rotatez(1.0, radius, 0, 0, alpha);
     points1 = rotm.rotatey(1.0, points1[0], points1[1], points1[2], beta);
@@ -48,24 +48,31 @@ void kugel::drawQuad(float radius, float dx, float dy, float dz, float alpha, fl
     float *points4 = rotm.rotatez(1.0, radius, 0, 0, alpha);
     points4 = rotm.rotatey(1.0, points4[0], points4[1], points4[2], beta+breite);
 
-   float jointheight = -radius*2;
-       for(int i = 0; i < this->armPos; i++){
-              //Höhe des vorherigen Roboterarms
-             if(i != 0){
-                   jointheight = jointaddHeights[i-1];
-              }
-            //Urpsprung auf den jeweiligen Arm versetzen und Rotieren
-            glTranslatef(0.0, jointheight, 0.0);
-            glRotatef(rotationsZ[i], 0.0f, 0.0f, 1.0f);
-         }
+    //Urpsrungskoordinaten als Matrix speichern um nach derm Zeichnen wieder zurückzusetzen
+    glTranslatef(0.0, -radius*2, 0.0);
 
-   //höhen variable auf den Parent Arm setzen
-   if(this->armPos != 0){
-       jointheight = jointaddHeights[this->armPos-1];
-   }
+    float jointheight = 0;
+    //ab dem 2. Arm die Rotationen der vorgänger Arme mit einbeziehen
+    if(this->armPos != 0){
+        for(int i = 0; i < this->armPos; i++){
+               //Höhe des vorherigen Roboterarms
+              if(i != 0){
+                    jointheight = jointaddHeights[i-1];
+               }
+              //Urpsprung auf den jeweiligen Arm versetzen und Rotieren
+             glTranslatef(0.0, jointheight, 0.0);
+             glRotatef(rotationsZ[i], 0.0f, 0.0f, 1.0f);
+          }
+      }
 
-   glTranslatef(0.0, jointheight, 0.0);
-   glRotatef(rotz, 0.0f, 0.0f, 1.0f);
+    //höhen variable auf den Parent Arm setzen
+    if(this->armPos != 0){
+        jointheight = jointaddHeights[this->armPos-1];
+    }
+
+    //Ursprung transformieren und die eigene rotation anwenden
+    glTranslatef(0.0, jointheight, 0.0);
+    glRotatef(rotz, 0.0f, 0.0f, 1.0f);
 
    glBegin(GL_QUADS);
    glColor4f(red, green, blue, 1.0);

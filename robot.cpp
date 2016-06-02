@@ -18,6 +18,8 @@ robot::robot()
         armsz[a] = 0.0;
     }
 
+    armsz[0] = 45.0;
+    armsz[1] = 20;
     //Verschiebung auf x, y und z der Roboter gezeichnet werden soll
     x = 5;
     y = 0;
