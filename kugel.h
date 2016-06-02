@@ -11,9 +11,9 @@ public:
     kugel(float r = 1.0, float g = 0.0, float b = 0.0);
     kugel(float r, float g, float b, int armPos);
     void drawKugel(float radius, float x, float y, float z, int kreisHoehe, int kreisBreite);
-    void setRotationX(float radius, float rotx);
-    void setRotationY(float radius,float roty);
-    void setRotationZ(float radius,float rotz);
+    void setRotationX(float rotx);
+    void setRotationY(float roty);
+    void setRotationZ(float rotz);
     void setRotationsZvalue(float* rotationsZ, float* jointaddHeights);
     void initialize();
 

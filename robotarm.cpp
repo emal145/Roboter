@@ -35,7 +35,7 @@ void robotarm::drawRobot(){
        else{
            quad.rotateZ(rotz);
        }
-       kug.setRotationZ((height+width),rotz);
+       kug.setRotationZ(rotz);
    }
 
    quad.setRotationsZvalue(rotationsZ, jointaddHeights);

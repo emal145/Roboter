@@ -31,7 +31,6 @@ void kugel::initialize(){
     rotx = 0;
     roty = 0;
     rotz = 0;
-    rotr = 0;
 }
 
 void kugel::drawQuad(float radius, float dx, float dy, float dz, float alpha, float beta){
@@ -98,19 +97,17 @@ void kugel::drawQuad(float radius, float dx, float dy, float dz, float alpha, fl
       }
    }
 
- void kugel::setRotationX(float radius,float rotx){
+ void kugel::setRotationX(float rotx){
      this->rotx = rotx;
-     this->rotr = radius;
  }
 
- void kugel::setRotationY(float radius, float roty){
+ void kugel::setRotationY(float roty){
      this->roty = roty;
-      this->rotr = radius;
  }
 
- void kugel::setRotationZ(float radius, float rotz){
+ void kugel::setRotationZ(float rotz){
      this->rotz = rotz;
-      this->rotr = radius;
+
  }
 
  void kugel::setRotationsZvalue(float* rotationsZ, float* jointaddHeights){
