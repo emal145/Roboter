@@ -33,7 +33,6 @@ void quader::initialize(){
     rotx = 0;
     roty = 0;
     rotz = 0;
-    rotr = 0;
 }
 
 void quader::drawGroundorTop(float s, float h){

@@ -83,6 +83,7 @@ void robotarm::rotateZ(float rotz){
        }
 }
 
+//Berechnung der Höhe des Robotorarms
 void robotarm::rotateZfromParent(int position, float rotz, float jointaddHeight){
     this->rotationsZ[position] = rotz;
         this->jointaddHeights[position] = jointaddHeight + width;

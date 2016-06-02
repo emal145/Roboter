@@ -3,7 +3,7 @@
 robot::robot()
 {
 
-    //Armbreite und gleichzeitig Kugel (Gelenk) Durchmesser
+    //Armbreite und gleichzeitig Gelenkkugel Durchmesser
     width = 0.3;
     //Armhöhe
     height = 4.0;
