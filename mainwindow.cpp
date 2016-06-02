@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->yRot, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(setRotY(int)));
     connect(ui->zRot, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(setRotZ(int)));
 
-    connect(ui->zoom, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(setZoom(int)));
+    //connect(ui->zoom, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(setZoom(int)));
     connect(ui->arm0Rotatez, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(setArm0Rotation(int)));
     connect(ui->arm1Rotatez, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(setArm1Rotation(int)));
     connect(ui->arm2Rotatez, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(setArm2Rotation(int)));
@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->resetR, SIGNAL(clicked(bool)), ui->glwidget, SLOT(resetRotation()));
     connect(ui->resetZ, SIGNAL(clicked(bool)), ui->glwidget, SLOT(resetZoom()));
     //Start + Stopp Button
-    connect(ui->start, SIGNAL(clicked(bool)), ui->glwidget, SLOT(programmStart(auswahl)));
+    connect(ui->start, SIGNAL(clicked(bool)), ui->glwidget, SLOT(programmStart(bool)));
     connect(ui->stopp, SIGNAL(clicked(bool)), ui->glwidget, SLOT(programmStopp()));
 
     // Handle any rotation change requests from mouse dragging and key presses
@@ -63,4 +63,5 @@ int MainWindow::changeComboBox(){
         return auswahl;
     }
 
+    return 0;
 }
