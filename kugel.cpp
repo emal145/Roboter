@@ -52,7 +52,7 @@ void kugel::drawQuad(float radius, float dx, float dy, float dz, float alpha, fl
        for(int i = 0; i < this->armPos; i++){
               //Höhe des vorherigen Roboterarms
              if(i != 0){
-                   jointheight = jointaddHeights[i-1]-radius*2;
+                   jointheight = jointaddHeights[i-1];
               }
             //Urpsprung auf den jeweiligen Arm versetzen und Rotieren
             glTranslatef(0.0, jointheight, 0.0);
