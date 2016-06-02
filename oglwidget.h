@@ -28,6 +28,7 @@ signals:
     // Emitted whenever a change of rotation angles is requested (e.g. by mouse or key)
     void changeRotation( int dx, int dy, int dz );
 
+
 public slots:
     // Set the rotation angles
     void setRotX( int newrx );
@@ -40,6 +41,8 @@ public slots:
     void resetRotation();
     void resetZoom();
     void resetKugel();
+    void programmStart(int auswahl);
+    void programmStopp();
     // Set zoom factor
     void setZoom( int newzoom );
     // Set unfolding position
@@ -72,6 +75,8 @@ protected:
     robot roboter;
     QTimer* animtimer; // Timer needed to step animation every x msec
     int animstep;      // Current animation step (used to rotate triangle
+
+
 };
 
 

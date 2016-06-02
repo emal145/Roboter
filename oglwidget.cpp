@@ -102,6 +102,7 @@ void OGLWidget::resetKugel(){
     animtimer->start(1);
 }
 
+<<<<<<< HEAD
 void OGLWidget::setArm0Rotation(int rz){
     float z = rz%360;
     this->roboter.setArmZ(0,z);
@@ -118,6 +119,14 @@ void OGLWidget::setArm2Rotation(int rz){
     float z = rz%360;
     this->roboter.setArmZ(2,z);
     update();
+=======
+void OGLWidget::programmStart(int auswahl){
+ std::cout << "Übergabe: " << auswahl << std::endl;
+}
+
+void OGLWidget::programmStopp(){
+
+>>>>>>> origin/newRoboterarms
 }
 
 void OGLWidget::initializeGL()
@@ -139,6 +148,7 @@ void OGLWidget::initializeGL()
     glLoadIdentity();
 }
 
+
 void OGLWidget::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -157,6 +167,12 @@ void OGLWidget::paintGL()
 
     roboter.drawRobot();
 
+<<<<<<< HEAD
+=======
+    k.drawKugel(2.0, -3.0,3.0,0.0, kreisHoehe, kreisBreite);
+    q.drawCube(0.0,0.0,1.0,s,h,2,1,0, qubeTop);
+
+>>>>>>> origin/newRoboterarms
 }
 
 void OGLWidget::resizeGL(int w, int h)
