@@ -60,6 +60,7 @@ void quader::drawGroundorTop(float s, float h){
    float *quad3 = rotm.rotatey(1.0,x,y+h,z, 270.0f);
    float *quad4 = rotm.rotatey(1.0,x,y+h,z, 360.0f);
 
+   //START - ROBOTERARM ROTATIONEN (Parent Rotations)
    float jointheight = 0;
    if(this->armsPos != 0){
        for(int i = 0; i < this->armsPos; i++){
@@ -75,7 +76,9 @@ void quader::drawGroundorTop(float s, float h){
    if(this->armsPos != 0){
        jointheight = jointaddHeight[this->armsPos-1];
    }
+   //END
 
+   //EIGENE ROTATION
    glTranslatef(0.0, jointheight, 0.0);
    glRotatef(rotz, 0.0f, 0.0f, 1.0f);
 
@@ -172,12 +175,16 @@ void quader::drawCube(float r, float y, float b, float s, float h, float dx, flo
     this->top = top;
     this->counter = 1;
 
+    //Boden Zeichnen
     drawGroundorTop(s, 0);
+
+    //Seitenwände
     for(int i = 1; i < 5; i++){
         this->counter = i;
         drawQuads(s,h);
     }
 
+    //Deckel
     if(top == true){
        drawGroundorTop(s, h);
     }
@@ -194,11 +201,13 @@ void quader::rotateY(float radius, float roty){
     this->rotr = radius;
 }
 
+//Eigene Rotation setzen
 void quader::rotateZ(float radius, float rotz){
     this->rotz = rotz;
     this->rotr = radius;
 }
 
+//Rotationswerte und Höhen der Parents setzen
 void quader::setRotationsZvalue(float* rotationZvalue, float* jointaddHeights){
     this->rotationsZ = &rotationZvalue[0];
     this->jointaddHeight = &jointaddHeights[0];

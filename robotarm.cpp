@@ -84,20 +84,11 @@ void robotarm::rotateZ(float rotz){
 }
 
 void robotarm::rotateZfromParent(int position, float rotz, float jointaddHeight){
-    if(position == 0){
-        this->rotationsZ[0] = rotz;
-        this->jointaddHeights[0] = jointaddHeight + width;
-        if(this->childArm != 0){
-            this->childArm->rotateZfromParent(position, rotz, jointaddHeight);
-        }
-    }
-    else{
-        this->rotationsZ[position] = rotz;
+    this->rotationsZ[position] = rotz;
         this->jointaddHeights[position] = jointaddHeight + width;
         if(this->childArm != 0){
             this->childArm->rotateZfromParent(position, rotz, jointaddHeight);
         }
-    }
 }
 
 void robotarm::setChildArm(robotarm &childArm){
