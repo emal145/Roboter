@@ -10,7 +10,7 @@ robotarm::~robotarm(){
 robotarm::robotarm(float width, float height, float x, float y, float z, int robotPosition)
 {
     quad = quader(robotPosition);
-    kug = kugel(0.07, 0.04, 0.0, robotPosition);
+    kug = kugel(0.7, 0.7, 0.7, robotPosition);
     rotm = rotationsmatrix();
     rotx = 0;
     roty = 0;
@@ -40,7 +40,7 @@ void robotarm::drawRobot(){
 
    quad.setRotationsZvalue(rotationsZ, jointaddHeights);
    kug.setRotationsZvalue(rotationsZ, jointaddHeights);
-   quad.drawCube(0.8,0.3,0.5,width, height, x, y, z, true);
+   quad.drawCube(0.8,0.4,0.0,width, height, x, y, z, true);
    kug.drawKugel(width/2.0, x, y+width/2, z, 90, 360);
 
 }

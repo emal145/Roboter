@@ -68,7 +68,10 @@ void quader::drawGroundorTop(float s, float h){
               }
 
             glTranslatef(0.0, jointheight, 0.0);
+            glTranslatef(0.0, -s/2, 0.0);
             glRotatef(rotationsZ[i], 0.0f, 0.0f, 1.0f);
+            glTranslatef(0.0, s/2, 0.0);
+
          }
      }
 

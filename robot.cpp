@@ -1,14 +1,14 @@
 #include "robot.h"
 
-robot::robot()
+robot::robot() //: robotBottom(zylinder(0.8, 0.4, 0.0))
 {
-
     //Armbreite und gleichzeitig Gelenkkugel Durchmesser
     width = 0.3;
     //Armhöhe
     height = 4.0;
     //Anzahl der Arme des Roboters
     nRobotarms = 3;
+    robotBottom = zylinder(0.8, 0.4, 0.0);
     robotarms = new robotarm[nRobotarms];
     //Rotationen der einzelnen Arme
     armsz = new float[nRobotarms];
@@ -48,6 +48,7 @@ robot::robot()
 
 void robot::drawRobot(){
     //Rotation der Einzelnen Arme durchführen weiter geben
+    robotBottom.drawZylinder(1.0, 2.0, x,y-width,z);
     for(int i = 0; i < nRobotarms; i++){
         moveJoint(i, armsz[i]);
     }

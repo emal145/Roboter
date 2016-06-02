@@ -131,7 +131,7 @@ void OGLWidget::initializeGL()
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_COLOR_MATERIAL);
     glEnable(GL_LIGHT0);
-    glEnable(GL_LIGHTING);
+   // glEnable(GL_LIGHTING);
     glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
 
     // For wireframe replace GL_FILL with GL_LINE
