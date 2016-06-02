@@ -7,7 +7,7 @@
 #include <QTimer>
 #include "table.h"
 #include "kugel.h"
-#include "quader.h"
+#include "geoquad.h"
 #include "robot.h"
 
 class OGLWidget : public QOpenGLWidget,
@@ -33,6 +33,9 @@ public slots:
     void setRotX( int newrx );
     void setRotY( int newry );
     void setRotZ( int newrz );
+    void setArm0Rotation(int rz);
+    void setArm1Rotation(int rz);
+    void setArm2Rotation(int rz);
     void stepAnimation();
     void resetRotation();
     void resetZoom();
@@ -61,7 +64,7 @@ protected:
     int kreisHoehe;
     int kreisBreite;
     int breitenCounter;
-    quader q;
+    GeoQuad quader;
     bool qubeTop;
     int qubeCounter;
     float s;

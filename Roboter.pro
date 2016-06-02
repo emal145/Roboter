@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     quader.cpp \
     rotationsmatrix.cpp \
     robotarm.cpp \
-    robot.cpp
+    robot.cpp \
+    geoquad.cpp
 
 HEADERS  += mainwindow.h \
     oglwidget.h \
@@ -28,6 +29,7 @@ HEADERS  += mainwindow.h \
     robotarm.h \
     quader.h \
     rotationsmatrix.h \
-    robot.h
+    robot.h \
+    geoquad.h
 
 FORMS    += mainwindow.ui

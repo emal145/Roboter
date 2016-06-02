@@ -9,7 +9,7 @@ class robotarm
 public:
     robotarm();
     ~robotarm();
-    robotarm(float width, float height, float x, float y, float z, int robotPosition, float robotdypos);
+    robotarm(float width, float height, float x, float y, float z, int robotPosition);
 
     void drawRobot();
     void setWidth(float width);
@@ -34,10 +34,8 @@ protected:
     float rotx;
     float roty;
     float rotz;
-    float rotzParent;
     float width;
     float height;
-    float robotdypos;
     float x;
     float y;
     float z;
@@ -45,6 +43,7 @@ protected:
     float *rotationsZ;
     float *jointaddHeights;
     float *jointaddHeightsKugel;
+
 
     rotationsmatrix rotm;
 };

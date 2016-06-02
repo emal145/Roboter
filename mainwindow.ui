@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>667</width>
+    <width>800</width>
     <height>678</height>
    </rect>
   </property>
@@ -67,6 +67,40 @@
            <string>Rest Zoom</string>
           </property>
          </widget>
+        </item>
+        <item>
+         <layout class="QGridLayout" name="gridLayout_2">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Arm 0 - Rotation Z</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QDial" name="arm0Rotatez"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Arm 1 - Rotation Z</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QDial" name="arm1Rotatez"/>
+          </item>
+          <item row="2" column="1">
+           <widget class="QDial" name="arm2Rotatez"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Arm 2 - Rotation Z</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </item>
@@ -163,7 +197,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>667</width>
+     <width>800</width>
      <height>22</height>
     </rect>
    </property>

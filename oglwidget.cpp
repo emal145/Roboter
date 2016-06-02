@@ -16,7 +16,7 @@ OGLWidget::OGLWidget(QWidget *parent)
     kreisHoehe = 270;
     kreisBreite = 360;
     breitenCounter = 0;
-    q = quader();
+    quader = GeoQuad();
     k = kugel(1.0,0.0,0.0);
     s = 3;
     h = 0;
@@ -39,12 +39,12 @@ void OGLWidget::stepAnimation()
 {
     if(kreisHoehe < 90){
         animtimer->stop();
-    } else{
+    }else{
       if(qubeCounter == 179){
           qubeTop = true;
       }
       update();      // Trigger redraw of scene with paintGL
-      h = qubeCounter * (3.0f/8640.0f);
+      h = qubeCounter * (3.0f/360.0f);
       std::cout << "hoehe: " << kreisHoehe << std::endl;
       qubeCounter++;
       kreisBreite = kreisBreite - 15;
@@ -102,6 +102,24 @@ void OGLWidget::resetKugel(){
     animtimer->start(1);
 }
 
+void OGLWidget::setArm0Rotation(int rz){
+    float z = rz%360;
+    this->roboter.setArmZ(0,z);
+    update();
+}
+
+void OGLWidget::setArm1Rotation(int rz){
+    float z = rz%360;
+    this->roboter.setArmZ(1,z);
+    update();
+}
+
+void OGLWidget::setArm2Rotation(int rz){
+    float z = rz%360;
+    this->roboter.setArmZ(2,z);
+    update();
+}
+
 void OGLWidget::initializeGL()
 {
     initializeOpenGLFunctions();
@@ -134,11 +152,11 @@ void OGLWidget::paintGL()
     float scale = zoom/100.0;
     glScalef( scale, scale, scale ); // Scale along all axis
     //glShadeModel(GL_FLAT);
+    k.drawKugel(2.0, -3.0,3.0,0.0, kreisHoehe, kreisBreite);
+    quader.drawCube(0.0,0.0,1.0,s,h,2,1,0, qubeTop);
 
     roboter.drawRobot();
 
-    k.drawKugel(2.0, -3.0,3.0,0.0, kreisHoehe, kreisBreite);
-    q.drawCube(0.0,0.0,1.0,s,h,2,1,0, qubeTop);
 }
 
 void OGLWidget::resizeGL(int w, int h)

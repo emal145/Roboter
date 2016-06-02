@@ -105,8 +105,8 @@ float* rotationsmatrix::nrotatey(float r, float x, float y, float z, float beta)
      * [ x   y   z  ]
      * --           --
      * | cos  0  -sin  |
-     * |  0   1   0   |
-     * |sin  0  cos  |
+     * |  0   1   0    |
+     * |sin  0  cos    |
      * --           --
      */
     float *rpoints = new float[3];

@@ -26,8 +26,10 @@ robotarm::robotarm(float width, float height, float x, float y, float z, int rob
     this->z = z;
     this->childArm = 0;
 }
+
 void robotarm::drawRobot(){
 
+   //rotz = eigene Rotation des aktuellen Arms
    if(rotz != 0){
        if(robotPosition == 0){
             quad.rotateZ(0, rotz);
@@ -71,18 +73,22 @@ void robotarm::rotateX(float radius, float rotx){
     this->radius = radius;
 
 }
+
 void robotarm::rotateY(float radius, float roty){
     this->roty = roty;
     this->radius = radius;
 }
 
+//Setze eigene Z-Rotation
 void robotarm::rotateZ(float rotz){
       this->rotz = rotz;
+        //Z-Rotation weitergeben an Childarm
         if(this->childArm != 0){
           childArm->rotateZfromParent(robotPosition, rotz, height);
        }
 }
 
+//Childarm erhält Z-Rotation des Parentarms 
 void robotarm::rotateZfromParent(int position, float rotz, float jointaddHeight){
     if(position == 0){
         this->rotationsZ[0] = rotz;

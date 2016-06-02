@@ -8,10 +8,7 @@ public:
     robot();
     void drawRobot();
     void moveJoint(int position, float rotZ);
-    /*void moveJoint1(float rotZ);
-    void moveJoint2(float rotZ);
-    void moveJoint3(float rotZ);
-    */
+   void setArmZ(int pos, float z);
 
 private:
     robotarm *robotarms;
@@ -21,6 +18,7 @@ private:
     float x;
     float y;
     float z;
+    float* armsz;
 };
 
 #endif // ROBOT_H

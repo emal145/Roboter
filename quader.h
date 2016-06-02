@@ -8,7 +8,7 @@ class quader
 {
 public:
     quader();
-    quader(int armsCount, float robotdypos);
+    quader(int armsPos);
     void drawCube(float red, float yellow, float blue, float s, float h, float dx, float dy, float dz, bool top);
     void rotateX(float radius, float rotx);
     void rotateY(float radius,float roty);
@@ -20,7 +20,6 @@ private:
     void initialize();
     void drawGroundorTop(float s, float h);
     void drawQuads(float s, float h);
-    void redrawCube();
 
     float red;
     float yellow;
@@ -32,14 +31,13 @@ private:
     float dz;
     float *rotationsZ;
     float *jointaddHeight;
-    int armsCount;
+    int armsPos;
 
     bool top;
     float rotx;
     float roty;
     float rotz;
     float rotr;
-    float robotdypos;
 
 protected:
     rotationsmatrix rotm;

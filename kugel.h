@@ -9,12 +9,12 @@ class kugel
 {
 public:
     kugel(float r = 1.0, float g = 0.0, float b = 0.0);
-    kugel(float r, float g, float b, int armCounts);
+    kugel(float r, float g, float b, int armPos);
     void drawKugel(float radius, float x, float y, float z, int kreisHoehe, int kreisBreite);
     void setRotationX(float radius, float rotx);
     void setRotationY(float radius,float roty);
     void setRotationZ(float radius,float rotz);
-    void setRotationsZvalue(float* rotationZvalue, float* jointaddHeights);
+    void setRotationsZvalue(float* rotationsZ, float* jointaddHeights);
     void initialize();
 
 private:
@@ -30,9 +30,9 @@ private:
     float dz;
     float dy;
     float rotr;
-    float* rotationZvalue;
+    float* rotationsZ;
     float* jointaddHeights;
-    int armCount;
+    int armPos;
     rotationsmatrix rotm;
 };
 
