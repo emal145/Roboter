@@ -10,9 +10,9 @@ public:
     quader();
     quader(int armsPos);
     void drawCube(float red, float yellow, float blue, float s, float h, float dx, float dy, float dz, bool top);
-    void rotateX(float radius, float rotx);
-    void rotateY(float radius,float roty);
-    void rotateZ(float radius,float rotz);
+    void rotateX(float rotx);
+    void rotateY(float roty);
+    void rotateZ(float rotz);
     void setRotationsZvalue(float* rotationZvalue, float* jointaddHeights);
    // void setJointAddHeightValue(int position, float height);
 

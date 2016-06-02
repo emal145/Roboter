@@ -30,10 +30,10 @@ void robotarm::drawRobot(){
 
    if(rotz != 0){
        if(robotPosition == 0){
-            quad.rotateZ(0, rotz);
+            quad.rotateZ(rotz);
        }
        else{
-           quad.rotateZ(width, rotz);
+           quad.rotateZ(rotz);
        }
        kug.setRotationZ((height+width),rotz);
    }

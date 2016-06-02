@@ -190,21 +190,17 @@ void quader::drawCube(float r, float y, float b, float s, float h, float dx, flo
     }
 }
 
-
-void quader::rotateX(float radius, float rotx){
+void quader::rotateX(float rotx){
     this->rotx = rotx;
-    this->rotr = radius;
 }
 
-void quader::rotateY(float radius, float roty){
+void quader::rotateY(float roty){
     this->roty = roty;
-    this->rotr = radius;
 }
 
 //Eigene Rotation setzen
-void quader::rotateZ(float radius, float rotz){
+void quader::rotateZ(float rotz){
     this->rotz = rotz;
-    this->rotr = radius;
 }
 
 //Rotationswerte und Höhen der Parents setzen
