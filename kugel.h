@@ -29,7 +29,6 @@ private:
     float dx;
     float dz;
     float dy;
-    float rotr;
     float* rotationsZ;
     float* jointaddHeights;
     int armPos;
