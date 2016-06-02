@@ -37,7 +37,6 @@ private:
     float rotx;
     float roty;
     float rotz;
-    float rotr;
 
 protected:
     rotationsmatrix rotm;
