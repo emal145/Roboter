@@ -21,8 +21,8 @@ public:
     void setChildArm(robotarm &childArm);
     void rotateZfromParent(int position, float rotz, float jointaddHeight);
 
-    void rotateX(float radius, float rotx);
-    void rotateY(float radius, float roty);
+    void rotateX(float rotx);
+    void rotateY(float roty);
     void rotateZ(float rotz);
 
 

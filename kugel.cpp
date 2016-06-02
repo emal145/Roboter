@@ -36,6 +36,7 @@ void kugel::initialize(){
 void kugel::drawQuad(float radius, float dx, float dy, float dz, float alpha, float beta){
    float breite = 2; //10*pi/180;
 
+   //Urpsrungskoordinaten als Matrix speichern um nach derm Zeichnen wieder zurückzusetzen
     glPushMatrix();
     glTranslatef(dx,dy,dz);
 
@@ -48,7 +49,9 @@ void kugel::drawQuad(float radius, float dx, float dy, float dz, float alpha, fl
     float *points4 = rotm.rotatez(1.0, radius, 0, 0, alpha);
     points4 = rotm.rotatey(1.0, points4[0], points4[1], points4[2], beta+breite);
 
-    //Urpsrungskoordinaten als Matrix speichern um nach derm Zeichnen wieder zurückzusetzen
+    //Rotation der Arme um Y-Achse
+    glRotatef(-roty, 0.0f, 1.0f, 0.0f);
+
     glTranslatef(0.0, -radius*2, 0.0);
 
     float jointheight = 0;
@@ -73,6 +76,8 @@ void kugel::drawQuad(float radius, float dx, float dy, float dz, float alpha, fl
     //Ursprung transformieren und die eigene rotation anwenden
     glTranslatef(0.0, jointheight, 0.0);
     glRotatef(rotz, 0.0f, 0.0f, 1.0f);
+
+    glRotatef(roty, 0.0, 1.0, 0.0);
 
    glBegin(GL_QUADS);
    glColor4f(red, green, blue, 1.0);

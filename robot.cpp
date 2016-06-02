@@ -1,4 +1,5 @@
 #include "robot.h"
+#include <iostream>
 
 robot::robot() //: robotBottom(zylinder(0.8, 0.4, 0.0))
 {
@@ -9,6 +10,7 @@ robot::robot() //: robotBottom(zylinder(0.8, 0.4, 0.0))
     //Anzahl der Arme des Roboters
     nRobotarms = 3;
     robotBottom = zylinder(0.8, 0.4, 0.0);
+    robotBottomRotY = 0.0;
     robotarms = new robotarm[nRobotarms];
     //Rotationen der einzelnen Arme
     armsz = new float[nRobotarms];
@@ -46,7 +48,10 @@ robot::robot() //: robotBottom(zylinder(0.8, 0.4, 0.0))
     }
  }
 
+
+
 void robot::drawRobot(){
+    calculatRotations();
     //Rotation der Einzelnen Arme durchführen weiter geben
     robotBottom.drawZylinder(1.0, 2.0, x,y-width,z);
     for(int i = 0; i < nRobotarms; i++){
@@ -55,6 +60,7 @@ void robot::drawRobot(){
 
     //jeden einzelnen Arm zeichen
     for(int i = 0; i < nRobotarms; i++){
+       robotarms[i].rotateY(robotBottomRotY);
        robotarms[i].drawRobot();
     }
 }
@@ -67,4 +73,18 @@ void robot::moveJoint(int position, float rotZ){
 //Rotation eines speziellen Arms festlegen
 void robot::setArmZ(int pos, float z){
     armsz[pos] = z;
+}
+
+void robot::calculatRotations(){
+    float pi = 3.1415926;
+
+    //Zylinder Rotation
+    float endeffectorX = 2;
+    float endeffectorZ = 2;
+
+    float hyp = sqrt(pow(x-endeffectorX,2.0) + pow(z-endeffectorZ,2.0));
+
+    float theta = asin((x-endeffectorX)/hyp)*180/pi;
+    robotBottomRotY = theta;
+    //std::cout <<"theta: " << theta << std::endl;
 }

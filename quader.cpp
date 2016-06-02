@@ -59,7 +59,10 @@ void quader::drawGroundorTop(float s, float h){
    float *quad3 = rotm.rotatey(1.0,x,y+h,z, 270.0f);
    float *quad4 = rotm.rotatey(1.0,x,y+h,z, 360.0f);
 
-   //START - ROBOTERARM ROTATIONEN (Parent Rotations)
+   //Rotation der Arme um Y-Achse
+   glRotatef(-roty, 0.0f, 1.0f, 0.0f);
+
+  //START - ROBOTERARM ROTATIONEN (Parent Rotations)
    float jointheight = 0;
    if(this->armsPos != 0){
        for(int i = 0; i < this->armsPos; i++){
@@ -124,12 +127,16 @@ void quader::drawQuads(float s, float h){
     rotm = rotationsmatrix();
    //Teilviereck jeder Seite
    glPushMatrix();
+
    //Verschiebung um den Versatz
    glTranslatef(dx, dy, dz);
    float *quad1 = rotm.rotatey(1.0,x,y,z, counter*90.0f); //Unten links
    float *quad2 = rotm.rotatey(1.0,x,y+h,z, counter*90.0f); //Oben links
    float *quad3 = rotm.rotatey(1.0,x,y+h,-z, counter*90.0f); //Oben rechts
    float *quad4 = rotm.rotatey(1.0,x,y,-z, counter*90.0f); //Unten rechts
+
+   //Rotation der Arme um Y-Achse
+   glRotatef(-roty, 0.0f, 1.0f, 0.0f);
 
    //Urpsrungskoordinaten als Matrix speichern um nach derm Zeichnen wieder zurückzusetzen
     float jointheight = 0;
@@ -182,6 +189,7 @@ void quader::drawCube(float r, float y, float b, float s, float h, float dx, flo
     this->dz = dz;
     this->top = top;
     this->counter = 1;
+
 
     //Boden Zeichnen
     drawGroundorTop(s, 0);

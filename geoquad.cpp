@@ -14,7 +14,6 @@ GeoQuad::GeoQuad()
     top = false;
 }
 
-
 void GeoQuad::drawGroundorTop(float s, float h){
     //Startkoordinate ergibt sich durch die hälfte der Seitenlänge,
     //damit das Koordinatensystem in der Mitte des Würfels ist.

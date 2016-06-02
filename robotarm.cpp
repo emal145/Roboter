@@ -37,6 +37,8 @@ void robotarm::drawRobot(){
        }
        kug.setRotationZ(rotz);
    }
+   quad.rotateY(roty);
+   kug.setRotationY(roty);
 
    quad.setRotationsZvalue(rotationsZ, jointaddHeights);
    kug.setRotationsZvalue(rotationsZ, jointaddHeights);
@@ -66,14 +68,13 @@ void robotarm::translateZ(float z){
 }
 
 
-void robotarm::rotateX(float radius, float rotx){
+void robotarm::rotateX(float rotx){
     this->rotx = rotx;
     this->radius = radius;
 
 }
-void robotarm::rotateY(float radius, float roty){
+void robotarm::rotateY(float roty){
     this->roty = roty;
-    this->radius = radius;
 }
 
 void robotarm::rotateZ(float rotz){

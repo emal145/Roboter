@@ -10,7 +10,7 @@ public:
     void drawRobot();
     void moveJoint(int position, float rotZ);
     void setArmZ(int pos, float z);
-
+    void calculatRotations();
 private:
     robotarm *robotarms;
     zylinder robotBottom;
@@ -21,7 +21,7 @@ private:
     float y;
     float z;
     float* armsz;
-
+    float robotBottomRotY;
 };
 
 #endif // ROBOT_H
