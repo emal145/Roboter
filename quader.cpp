@@ -63,15 +63,15 @@ void quader::drawGroundorTop(float s, float h){
    float jointheight = 0;
    if(this->armsPos != 0){
        for(int i = 0; i < this->armsPos; i++){
+              //Höhe des vorherigen Roboterarms
              if(i != 0){
                    jointheight = jointaddHeight[i-1];
               }
-
+             //Urpsprung auf den jeweiligen Arm versetzen und Rotieren
             glTranslatef(0.0, jointheight, 0.0);
             glTranslatef(0.0, -s/2, 0.0);
             glRotatef(rotationsZ[i], 0.0f, 0.0f, 1.0f);
             glTranslatef(0.0, s/2, 0.0);
-
          }
      }
 
@@ -80,9 +80,11 @@ void quader::drawGroundorTop(float s, float h){
    }
    //END
 
-   //EIGENE ROTATION
+   //Ursprung transformieren und die eigene rotation anwenden
    glTranslatef(0.0, jointheight, 0.0);
-   glRotatef(rotz, 0.0f, 0.0f, 1.0f);
+   glTranslatef(0.0, -s/2, 0.0);
+   glRotatef(rotz, 0.0f,0.0f, 1.0f);
+   glTranslatef(0.0, s/2, 0.0);
 
    glBegin(GL_QUADS);
     glColor3f(red, yellow, blue);
