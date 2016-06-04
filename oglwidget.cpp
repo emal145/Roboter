@@ -218,7 +218,7 @@ void OGLWidget::paintGL()
     //k.drawKugel(2.0, -3.0,3.0,0.0, kreisHoehe, kreisBreite);
     //quader.drawCube(0.0,0.0,1.0,s,h,2,1,0, qubeTop);
     setForm();
-    roboter.drawRobot();
+    //roboter.drawRobot();
     //ÄNDUNG Auswahl festlegen, wenn Kugel kugel zeichen usw!!!!
 
 }

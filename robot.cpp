@@ -92,6 +92,10 @@ void robot::setEndeffektorz(int z){
 }
 
 void robot::calculatRotations(float* endeffektor){
+    this->endeffektorx = endeffektor[0];
+    this->endeffektory = endeffektor[1];
+    this->endeffektorz = endeffektor[2];
+
     float pi = 3.1415926;
     float theta = 0;
     float hyp = 0;
@@ -108,25 +112,28 @@ void robot::calculatRotations(float* endeffektor){
     //}
     robotBottomRotY = theta;
 
-    //Arm1 maximale reichweite bei 45 grad
-    float a1maxHeight = cos(45*pi/180)*roboterHeights[0];
+    //Arm Rotationen
+    //Betrag (Hypotenuse) von Roboter bis zum Punkt
+    float c = sqrt(pow((x-endeffektorx),2) + pow((endeffektory),2));
 
-    //Arm1 Rotation
-    float heightArmToPoint = roboterHeights[0] - endeffektor[1];
-    float arm2ReachLength = roboterHeights[1];
-    float theta1;//Wenn Arm 1 sich nicht weiter als 45Grad drehen muss...
-    if((heightArmToPoint) < a1maxHeight){
-        theta1 = acos(heightArmToPoint/roboterHeights[1])*180/pi;
-        arm2ReachLength = cos(theta1*pi/180) * roboterHeights[1];
+    //Winkel des ersten Arms mittels Kosinussatz berechnen
+    //b^2 = c^2 + a^2 - 2ca*cos(beta)
+    //Umgestellt nach cos(beta)
+    // cos(beta) = (c^2 + a^2 - 2ca) /b^2
+    float a = roboterHeights[0];
+    float b = roboterHeights[1];
+    float cos_arm1Theta = (pow(c,2) + pow(a,2) - 2*c*a) / pow(b,2);
+    float arm1Theta = acos(cos_arm1Theta)*180/pi;
 
-    }
+    //Winkel des ersten Arms mittels Kosinussatz berechnen
+    //c^2 = a^2 + b^2 - 2ab*cos(gamma)
+    //Umgestellt nach cos(gamma)
+    // cos(gamma) = (a^2 + b^2 - 2ab) /c^2
+    float cos_arm2Theta = (pow(a,2) + pow(b,2) - 2*a*b) /pow(c,2);
+    float arm2Theta = acos(cos_arm2Theta)*180/pi;
 
-    //Arm0 Rotation
-    float lengthArmToPoint = hyp - arm2ReachLength;
-    float theta0 = acos(lengthArmToPoint/roboterHeights[0])*180/pi;
-    armsz[0] = theta0;
-    armsz[1] = 90 - theta0 + theta1;
+    armsz[0] = arm1Theta;
+    armsz[1] = arm2Theta;
     armsz[2] = (90 + (90-armsz[1])) - armsz[0];
-
 
 }
