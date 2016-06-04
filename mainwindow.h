@@ -17,7 +17,6 @@ public:
 
 private slots:
     void onChangeRotation( int dx, int dy, int dz );
-    void changeComboBox();
 
 private:
     Ui::MainWindow *ui;

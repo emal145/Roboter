@@ -45,6 +45,7 @@ public slots:
     void programmStopp();
     // Set zoom factor
     void setZoom( int newzoom );
+    void changeComboBox(int auswahl);
     // Set unfolding position
     void setEndeffektorX(int x);
     void setEndeffektorY(int y);
@@ -64,12 +65,9 @@ protected:
     QPoint lastpos; // Last position of mouse pressed, used for dragging
     int frames;
     table t;
-<<<<<<< HEAD
     geokugel gkugel;
-=======
     kugel k;
     zylinder zy;
->>>>>>> origin/newRoboterarms
     double alpha;
     double beta;
     int kreisHoehe;

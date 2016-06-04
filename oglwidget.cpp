@@ -37,6 +37,10 @@ OGLWidget::~OGLWidget()
 {
 }
 
+void OGLWidget::changeComboBox(int auswahl){
+    std::cout << "auswahl: " << auswahl << std::endl;
+}
+
 //Hier aktion wenn timer läuft
 
 //Hier prüfen, ob Kreis oder Würfel und dann die entsprechende Zeit

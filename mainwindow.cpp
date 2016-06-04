@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->stopp, SIGNAL(clicked(bool)), ui->glwidget, SLOT(programmStopp()));
 
     //COMBOBOX einbauen !!! ÄNDERUNG
-    connect(ui->comboBox, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(changeComboBox()));
+    connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), ui->glwidget, SLOT(changeComboBox(int)));
 
     // Handle any rotation change requests from mouse dragging and key presses
     connect( ui->glwidget, SIGNAL(changeRotation(int,int,int)), this, SLOT(onChangeRotation(int,int,int)));
@@ -64,7 +64,7 @@ void MainWindow::onChangeRotation(int dx, int dy, int dz)
 
 //METHODE in OGL WIDGET wie rotation !!
 //Auswahl als variable angeben
-void MainWindow::changeComboBox(){
+/*void MainWindow::changeComboBox(){
 
     if(ui->comboBox->currentIndex()== 0){
         form = 1;
@@ -77,4 +77,4 @@ void MainWindow::changeComboBox(){
          std::cout << "Übergabe3: " << form << std::endl;
     }
 
-}
+}*/
