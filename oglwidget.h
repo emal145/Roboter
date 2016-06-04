@@ -39,13 +39,12 @@ public slots:
     void setArm2Rotation(int rz);
     void stepAnimation();
     void resetRotation();
+    void changeComboBox(int auswahl);
     void setForm();
 
     void programmStart();
     void programmStopp();
-    // Set zoom factor
-    void setZoom( int newzoom );
-    void changeComboBox(int auswahl);
+
     // Set unfolding position
     void setEndeffektorX(int x);
     void setEndeffektorY(int y);

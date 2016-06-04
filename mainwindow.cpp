@@ -26,22 +26,12 @@ MainWindow::MainWindow(QWidget *parent) :
     //Start + Stopp Button
     connect(ui->start, SIGNAL(clicked(bool)), ui->glwidget, SLOT(programmStart()));
     connect(ui->stopp, SIGNAL(clicked(bool)), ui->glwidget, SLOT(programmStopp()));
-
-    //COMBOBOX einbauen !!! ÄNDERUNG
-
+    //Formauswahl Kugel, Würfel, Zylinder
     connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), ui->glwidget, SLOT(changeComboBox(int)));
-
-    //connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(changeComboBox()));
-    //connect(ui->Kugel, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(checkForm()));
-    //connect(ui->Wuerfel, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(checkForm()));
-    //connect(ui->Zylinder, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(checkForm()));
 
     // Handle any rotation change requests from mouse dragging and key presses
     connect( ui->glwidget, SIGNAL(changeRotation(int,int,int)), this, SLOT(onChangeRotation(int,int,int)));
 
-    connect(ui->endeffX, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(setEndeffektorX(int)));
-    connect(ui->endeffY, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(setEndeffektorY(int)));
-    connect(ui->endeffZ, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(setEndeffektorZ(int)));
 
 }
 
@@ -67,30 +57,3 @@ void MainWindow::onChangeRotation(int dx, int dy, int dz)
     // NB: SetValue will emit valueChanged signal, so the scene gets updated
 }
 
-void MainWindow::checkForm()
-{
-/*    if(ui->Kugel->isChecked()){
-        //int OGLWidget.form =1;
-    } else if(ui->Wuerfel->isChecked()){
-        //int OGLWidget.form =2;
-    }else if(ui->Zylinder->isChecked()){
-        //OGLWIDGET_H.form =3;
-    }*/
-}
-
-//METHODE in OGL WIDGET wie rotation !!
-//Auswahl als variable angeben
-/*void MainWindow::changeComboBox(){
-
-    if(ui->comboBox->currentIndex()== 0){
-        form = 1;
-         std::cout << "Übergabe1: " << form << std::endl;
-    } else if (ui->comboBox->currentIndex() == 1){
-        form = 2;
-         std::cout << "Übergabe2: " << form << std::endl;
-    } else if (ui->comboBox->currentText() == "Zylinder"){
-        form = 3;
-         std::cout << "Übergabe3: " << form << std::endl;
-    }
-
-}*/
