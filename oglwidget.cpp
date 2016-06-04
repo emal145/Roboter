@@ -18,6 +18,8 @@ OGLWidget::OGLWidget(QWidget *parent)
     breitenCounter = 0;
     quader = GeoQuad();
     gkugel = geokugel(1.0,0.0,0.0);
+    k = kugel(1.0,0.0,0.0);
+    zy = zylinder(1.0,1.0,1.0);
     s = 3;
     h = 0;
     qubeCounter = 0;
@@ -35,16 +37,25 @@ OGLWidget::~OGLWidget()
 {
 }
 
+//Hier aktion wenn timer läuft
+
+//Hier prüfen, ob Kreis oder Würfel und dann die entsprechende Zeit
+//(WEnn Kugel- Werte verändern und prüfen ob Timer zuende ist.)
 void OGLWidget::stepAnimation()
 {
     if(kreisHoehe < 90){
-        animtimer->stop();
-    }else{
+        animtimer->stop(); //TimerStop
+    }else {
       if(qubeCounter == 179){
           qubeTop = true;
       }
+      if(zyhoehe == 4.0){
+          animtimer->stop();
+      }
       update();      // Trigger redraw of scene with paintGL
       h = qubeCounter * (3.0f/360.0f);
+      zyhoehe = zyhoehe + 0.01;
+      std::cout << "hoehe: " << kreisHoehe << std::endl;
       qubeCounter++;
       kreisBreite = kreisBreite - 15;
       if(kreisBreite == 0){
@@ -56,6 +67,7 @@ void OGLWidget::stepAnimation()
 
 
 }
+
 void OGLWidget::setRotX(int newrx)
 {
     rotx = newrx;
@@ -87,13 +99,23 @@ void OGLWidget::resetRotation(){
     update();
 }
 
-void OGLWidget::resetKugel(){
-    kreisHoehe = 270;
-    kreisBreite = 360;
-    h = 0;
-    qubeCounter = 0;
-    qubeTop = false;
-    animtimer->start(1);
+
+//METHODE in OGL WIDGET wie rotation !!
+//Auswahl als variable angeben
+void OGLWidget::setForm(int form){
+    //Kugel
+    if(form ==1){
+        k.drawKugel(2.0, -3.0,3.0,0.0, kreisHoehe, kreisBreite);
+
+        //Würfel
+    } else if (form ==2){
+        quader.drawCube(0.0,0.0,1.0,s,h,2,1,0, qubeTop);
+        //Zylinder
+    } else if (form ==3){
+        zy.drawZylinder(zyradius,zyhoehe,1.0,1.0,1.0);
+    }
+
+
 }
 
 void OGLWidget::setArm0Rotation(int rz){
@@ -114,12 +136,21 @@ void OGLWidget::setArm2Rotation(int rz){
     update();
 }
 
+
 void OGLWidget::programmStart(){
- std::cout << "Übergabe: "  << std::endl;
+
+ kreisHoehe = 270;
+ kreisBreite = 360;
+ h = 0;
+ qubeCounter = 0;
+ qubeTop = false;
+ zyradius = 2;
+ animtimer->start(1);//TimerStart (1= Milisekunden)
+ update();
 }
 
 void OGLWidget::programmStopp(){
-
+    animtimer->stop();
 }
 
 void OGLWidget::setEndeffektorX(int x){
@@ -179,6 +210,11 @@ void OGLWidget::paintGL()
     roboter.calculatRotations(gkugel.drawKugel(3.0, 1.0,2.0,3.0, kreisHoehe, kreisBreite));
     roboter.drawRobot();
     //quader.drawCube(0.0,0.0,1.0,s,h,2,1,0, qubeTop);
+    //k.drawKugel(2.0, -3.0,3.0,0.0, kreisHoehe, kreisBreite);
+    //quader.drawCube(0.0,0.0,1.0,s,h,2,1,0, qubeTop);
+    setForm(2);
+    roboter.drawRobot();
+    //ÄNDUNG Auswahl festlegen, wenn Kugel kugel zeichen usw!!!!
 
 }
 

@@ -39,7 +39,8 @@ public slots:
     void setArm2Rotation(int rz);
     void stepAnimation();
     void resetRotation();
-    void resetKugel();
+    void setForm(int auswahl);
+
     void programmStart();
     void programmStopp();
     // Set zoom factor
@@ -63,12 +64,20 @@ protected:
     QPoint lastpos; // Last position of mouse pressed, used for dragging
     int frames;
     table t;
+<<<<<<< HEAD
     geokugel gkugel;
+=======
+    kugel k;
+    zylinder zy;
+>>>>>>> origin/newRoboterarms
     double alpha;
     double beta;
     int kreisHoehe;
     int kreisBreite;
+    float zyradius;
+    float zyhoehe;
     int breitenCounter;
+    int form;
     GeoQuad quader;
     bool qubeTop;
     int qubeCounter;

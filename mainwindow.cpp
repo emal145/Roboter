@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "QComboBox"
 #include "QSpinBox"
+#include "iostream"
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -20,11 +21,13 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->arm1Rotatez, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(setArm1Rotation(int)));
     connect(ui->arm2Rotatez, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(setArm2Rotation(int)));
 
-    connect(ui->resetK, SIGNAL(clicked(bool)), ui->glwidget, SLOT(resetKugel()));
     connect(ui->resetR, SIGNAL(clicked(bool)), ui->glwidget, SLOT(resetRotation()));
     //Start + Stopp Button
     connect(ui->start, SIGNAL(clicked(bool)), ui->glwidget, SLOT(programmStart()));
     connect(ui->stopp, SIGNAL(clicked(bool)), ui->glwidget, SLOT(programmStopp()));
+
+    //COMBOBOX einbauen !!! ÄNDERUNG
+    connect(ui->comboBox, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(changeComboBox()));
 
     // Handle any rotation change requests from mouse dragging and key presses
     connect( ui->glwidget, SIGNAL(changeRotation(int,int,int)), this, SLOT(onChangeRotation(int,int,int)));
@@ -52,21 +55,26 @@ void MainWindow::onChangeRotation(int dx, int dy, int dz)
     ui->yRot->setValue( newy % 360 );
     ui->zRot->setValue( newz % 360 );
 
+
+
     // NB: SetValue will emit valueChanged signal, so the scene gets updated
 }
 
-int MainWindow::changeComboBox(){
 
-    if(ui->comboBox->currentText() == "Kugel"){
-        auswahl = 1;
-        return auswahl;
-    } else if (ui->comboBox->currentText() == "Würfel"){
-        auswahl = 2;
-        return auswahl;
+
+//METHODE in OGL WIDGET wie rotation !!
+//Auswahl als variable angeben
+void MainWindow::changeComboBox(){
+
+    if(ui->comboBox->currentIndex()== 0){
+        form = 1;
+         std::cout << "Übergabe1: " << form << std::endl;
+    } else if (ui->comboBox->currentIndex() == 1){
+        form = 2;
+         std::cout << "Übergabe2: " << form << ui->comboBox->currentIndex()<< std::endl;
     } else if (ui->comboBox->currentText() == "Zylinder"){
-        auswahl = 3;
-        return auswahl;
+        form = 3;
+         std::cout << "Übergabe3: " << form << std::endl;
     }
 
-    return 0;
 }

@@ -49,6 +49,12 @@
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
          <widget class="QComboBox" name="comboBox">
+          <property name="currentText">
+           <string>Kugel</string>
+          </property>
+          <property name="currentIndex">
+           <number>0</number>
+          </property>
           <property name="maxVisibleItems">
            <number>3</number>
           </property>
@@ -80,13 +86,6 @@
          <widget class="QPushButton" name="stopp">
           <property name="text">
            <string>Stopp</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="resetK">
-          <property name="text">
-           <string>Reset Kugel</string>
           </property>
          </widget>
         </item>
