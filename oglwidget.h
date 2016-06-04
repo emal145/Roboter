@@ -39,7 +39,8 @@ public slots:
     void setArm2Rotation(int rz);
     void stepAnimation();
     void resetRotation();
-    void resetKugel();
+    void setForm(int auswahl);
+
     void programmStart();
     void programmStopp();
     // Set zoom factor
@@ -61,11 +62,15 @@ protected:
     int frames;
     table t;
     kugel k;
+    zylinder zy;
     double alpha;
     double beta;
     int kreisHoehe;
     int kreisBreite;
+    float zyradius;
+    float zyhoehe;
     int breitenCounter;
+    int form;
     GeoQuad quader;
     bool qubeTop;
     int qubeCounter;
