@@ -17,7 +17,7 @@ OGLWidget::OGLWidget(QWidget *parent)
     kreisBreite = 360;
     breitenCounter = 0;
     quader = GeoQuad();
-    k = kugel(1.0,0.0,0.0);
+    gkugel = geokugel(1.0,0.0,0.0);
     s = 3;
     h = 0;
     qubeCounter = 0;
@@ -45,7 +45,6 @@ void OGLWidget::stepAnimation()
       }
       update();      // Trigger redraw of scene with paintGL
       h = qubeCounter * (3.0f/360.0f);
-      std::cout << "hoehe: " << kreisHoehe << std::endl;
       qubeCounter++;
       kreisBreite = kreisBreite - 15;
       if(kreisBreite == 0){
@@ -123,6 +122,22 @@ void OGLWidget::programmStopp(){
 
 }
 
+void OGLWidget::setEndeffektorX(int x){
+   roboter.setEndeffektorx(x);
+   update();
+}
+
+void OGLWidget::setEndeffektorY(int y){
+  roboter.setEndeffektory(y);
+  update();
+}
+
+void OGLWidget::setEndeffektorZ(int z){
+   roboter.setEndeffektorz(z);
+   update();
+}
+
+
 void OGLWidget::initializeGL()
 {
     initializeOpenGLFunctions();
@@ -134,6 +149,7 @@ void OGLWidget::initializeGL()
    // glEnable(GL_LIGHTING);
     glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
 
+    glOrtho(-50,50,-50,50,2,10);
     // For wireframe replace GL_FILL with GL_LINE
     glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
     glMatrixMode(GL_PROJECTION);
@@ -156,13 +172,13 @@ void OGLWidget::paintGL()
     float scale = zoom/100.0;
     glScalef( scale, scale, scale ); // Scale along all axis
     //glShadeModel(GL_FLAT);
-    k.drawKugel(2.0, -3.0,3.0,0.0, kreisHoehe, kreisBreite);
-    quader.drawCube(0.0,0.0,1.0,s,h,2,1,0, qubeTop);
 
+    //k.drawKugel(0.3, roboter.endeffektorx, 0.3, roboter.endeffektorz, 90, 360);
+
+
+    roboter.calculatRotations(gkugel.drawKugel(3.0, 1.0,2.0,3.0, kreisHoehe, kreisBreite));
     roboter.drawRobot();
-
-    k.drawKugel(2.0, -3.0,3.0,0.0, kreisHoehe, kreisBreite);
-    quader.drawCube(0.0,0.0,1.0,s,h,2,1,0, qubeTop);
+    //quader.drawCube(0.0,0.0,1.0,s,h,2,1,0, qubeTop);
 
 }
 

@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "QComboBox"
+#include "QSpinBox"
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -27,6 +28,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Handle any rotation change requests from mouse dragging and key presses
     connect( ui->glwidget, SIGNAL(changeRotation(int,int,int)), this, SLOT(onChangeRotation(int,int,int)));
+
+    connect(ui->endeffX, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(setEndeffektorX(int)));
+    connect(ui->endeffY, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(setEndeffektorY(int)));
+    connect(ui->endeffZ, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(setEndeffektorZ(int)));
+
 }
 
 MainWindow::~MainWindow()

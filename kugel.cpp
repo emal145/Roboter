@@ -50,7 +50,7 @@ void kugel::drawQuad(float radius, float dx, float dy, float dz, float alpha, fl
     points4 = rotm.rotatey(1.0, points4[0], points4[1], points4[2], beta+breite);
 
     //Rotation der Arme um Y-Achse
-    glRotatef(-roty, 0.0f, 1.0f, 0.0f);
+    glRotatef(roty, 0.0f, 1.0f, 0.0f);
 
     glTranslatef(0.0, -radius*2, 0.0);
 
@@ -85,14 +85,14 @@ void kugel::drawQuad(float radius, float dx, float dy, float dz, float alpha, fl
     glVertex3f(points2[0], points2[1], points2[2]);
     glVertex3f(points3[0], points3[1], points3[2]);
     glVertex3f(points4[0], points4[1], points4[2]);
-   glEnd();
-
+    glEnd();
     glPopMatrix();
 }
 
  void kugel::drawKugel(float radius, float x, float y, float z, int kreisHoehe, int kreisBreite){
         double alpha = 270;
         double beta = 0.01;
+
         //beta = z achse, alpha = y achse
         while(alpha >= kreisHoehe){
                beta = 0.0;
@@ -102,7 +102,7 @@ void kugel::drawQuad(float radius, float dx, float dy, float dz, float alpha, fl
              }
 
             while(beta <= teilBreite){
-             drawQuad(radius, x, y, z, alpha, beta);
+            drawQuad(radius, x, y, z, alpha, beta);
              beta+= 2;
             }
             alpha -= 2;

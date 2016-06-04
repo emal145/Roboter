@@ -1,5 +1,6 @@
 #include "robotarm.h"
 #include <iostream>
+
 robotarm::robotarm(){
 }
 
@@ -70,7 +71,6 @@ void robotarm::translateZ(float z){
 
 void robotarm::rotateX(float rotx){
     this->rotx = rotx;
-    this->radius = radius;
 
 }
 void robotarm::rotateY(float roty){

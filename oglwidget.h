@@ -6,7 +6,7 @@
 #include <QMouseEvent>
 #include <QTimer>
 #include "table.h"
-#include "kugel.h"
+#include "geokugel.h"
 #include "geoquad.h"
 #include "robot.h"
 
@@ -45,6 +45,9 @@ public slots:
     // Set zoom factor
     void setZoom( int newzoom );
     // Set unfolding position
+    void setEndeffektorX(int x);
+    void setEndeffektorY(int y);
+    void setEndeffektorZ(int z);
 
 protected:
     void initializeGL();
@@ -60,7 +63,7 @@ protected:
     QPoint lastpos; // Last position of mouse pressed, used for dragging
     int frames;
     table t;
-    kugel k;
+    geokugel gkugel;
     double alpha;
     double beta;
     int kreisHoehe;

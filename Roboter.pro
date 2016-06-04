@@ -16,22 +16,24 @@ SOURCES += main.cpp\
     oglwidget.cpp \
     table.cpp \
     kugel.cpp \
-    quader.cpp \
     rotationsmatrix.cpp \
     robotarm.cpp \
     robot.cpp \
     geoquad.cpp \
-    zylinder.cpp
+    zylinder.cpp \
+    geokugel.cpp \
+    quader.cpp
 
 HEADERS  += mainwindow.h \
     oglwidget.h \
     table.h \
     kugel.h \
     robotarm.h \
-    quader.h \
     rotationsmatrix.h \
     robot.h \
     geoquad.h \
-    zylinder.h
+    zylinder.h \
+    geokugel.h \
+    quader.h
 
 FORMS    += mainwindow.ui
