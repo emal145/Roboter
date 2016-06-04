@@ -39,7 +39,6 @@ OGLWidget::~OGLWidget()
 }
 
 void OGLWidget::changeComboBox(int auswahl){
-    std::cout << "auswahl: " << auswahl << std::endl;
    form = auswahl;
 }
 
@@ -110,14 +109,14 @@ void OGLWidget::resetRotation(){
 //Auswahl als variable angeben
 void OGLWidget::setForm(){
     //Kugel
-    if(form ==1){
-        k.drawKugel(2.0, -3.0,3.0,0.0, kreisHoehe, kreisBreite);
+    if(form ==0){
+        roboter.calculatRotations(gkugel.drawKugel(3.0, 1.0,2.0,3.0, kreisHoehe, kreisBreite));
 
         //Würfel
-    } else if (form ==2){
+    } else if (form ==1){
         quader.drawCube(0.0,0.0,1.0,s,h,2,1,0, qubeTop);
         //Zylinder
-    } else if (form ==3){
+    } else if (form ==2){
         zy.drawZylinder(zyradius,zyhoehe,1.0,1.0,1.0);
     }
 
