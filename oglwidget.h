@@ -39,7 +39,7 @@ public slots:
     void setArm2Rotation(int rz);
     void stepAnimation();
     void resetRotation();
-    void setForm(int auswahl);
+    void setForm();
 
     void programmStart();
     void programmStopp();

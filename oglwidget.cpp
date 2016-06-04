@@ -22,6 +22,7 @@ OGLWidget::OGLWidget(QWidget *parent)
     zy = zylinder(1.0,1.0,1.0);
     s = 3;
     h = 0;
+    form = 0;
     qubeCounter = 0;
     qubeTop = false;
     roboter = robot();
@@ -39,6 +40,7 @@ OGLWidget::~OGLWidget()
 
 void OGLWidget::changeComboBox(int auswahl){
     std::cout << "auswahl: " << auswahl << std::endl;
+   form = auswahl;
 }
 
 //Hier aktion wenn timer läuft
@@ -106,7 +108,7 @@ void OGLWidget::resetRotation(){
 
 //METHODE in OGL WIDGET wie rotation !!
 //Auswahl als variable angeben
-void OGLWidget::setForm(int form){
+void OGLWidget::setForm(){
     //Kugel
     if(form ==1){
         k.drawKugel(2.0, -3.0,3.0,0.0, kreisHoehe, kreisBreite);
@@ -211,12 +213,12 @@ void OGLWidget::paintGL()
     //k.drawKugel(0.3, roboter.endeffektorx, 0.3, roboter.endeffektorz, 90, 360);
 
 
-    roboter.calculatRotations(gkugel.drawKugel(3.0, 1.0,2.0,3.0, kreisHoehe, kreisBreite));
+    //roboter.calculatRotations(gkugel.drawKugel(3.0, 1.0,2.0,3.0, kreisHoehe, kreisBreite));
     roboter.drawRobot();
     //quader.drawCube(0.0,0.0,1.0,s,h,2,1,0, qubeTop);
     //k.drawKugel(2.0, -3.0,3.0,0.0, kreisHoehe, kreisBreite);
     //quader.drawCube(0.0,0.0,1.0,s,h,2,1,0, qubeTop);
-    setForm(2);
+    setForm();
     roboter.drawRobot();
     //ÄNDUNG Auswahl festlegen, wenn Kugel kugel zeichen usw!!!!
 
