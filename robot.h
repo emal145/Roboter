@@ -11,12 +11,12 @@ public:
     void moveJoint(int position, float rotZ);
     void setArmZ(int pos, float z);
     void calculatRotations(float* endeffektor);
-    void setEndeffektorx(int x);
-    void setEndeffektory(int y);
-    void setEndeffektorz(int z);
-    int endeffektorx;
-    int endeffektory;
-    int endeffektorz;
+    void setEndeffektorx(float x);
+    void setEndeffektory(float y);
+    void setEndeffektorz(float z);
+    float endeffektorx;
+    float endeffektory;
+    float endeffektorz;
 
 private:
     robotarm *robotarms;
@@ -24,6 +24,7 @@ private:
     float width;
     float* roboterHeights;
     int nRobotarms;
+    float robotBottomHeight;
     float x;
     float y;
     float z;

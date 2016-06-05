@@ -26,6 +26,7 @@ OGLWidget::OGLWidget(QWidget *parent)
     qubeCounter = 0;
     qubeTop = false;
     roboter = robot();
+    startAnim = false;
     // Setup the animation timer to fire every x msec
     animtimer = new QTimer(this);
 
@@ -44,7 +45,7 @@ void OGLWidget::changeComboBox(int auswahl){
 void OGLWidget::setForm(){
     //Kugel
     if(form ==0){
-        roboter.calculatRotations(gkugel.drawKugel(3.0, 1.0,2.0,3.0, kreisHoehe, kreisBreite));
+        roboter.calculatRotations(gkugel.drawKugel(2.0, 0.0,0.0,2.0, kreisHoehe, kreisBreite));
         //Würfel
     } else if (form ==1){
         quader.drawCube(0.0,0.0,1.0,s,h,2,1,0, qubeTop);
@@ -135,16 +136,16 @@ void OGLWidget::programmStart(){
  qubeCounter = 0;
  qubeTop = false;
  zyradius = 1.5;
- zyhoehe =0;
+ zyhoehe = 0;
+ startAnim = true;
  animtimer->start(1);//TimerStart (1= Milisekunden)
  update();
 }
 
 void OGLWidget::programmStopp(){
+    startAnim = false;
     animtimer->stop();
 }
-
-
 
 void OGLWidget::resetRotation(){
     rotx = 0;
@@ -152,25 +153,6 @@ void OGLWidget::resetRotation(){
     rotz = 0;
     update();
 }
-
-
-
-
-void OGLWidget::setEndeffektorX(int x){
-   roboter.setEndeffektorx(x);
-   update();
-}
-
-void OGLWidget::setEndeffektorY(int y){
-  roboter.setEndeffektory(y);
-  update();
-}
-
-void OGLWidget::setEndeffektorZ(int z){
-   roboter.setEndeffektorz(z);
-   update();
-}
-
 
 void OGLWidget::initializeGL()
 {
@@ -207,10 +189,41 @@ void OGLWidget::paintGL()
     glScalef( scale, scale, scale ); // Scale along all axis
     //glShadeModel(GL_FLAT);
     //k.drawKugel(0.3, roboter.endeffektorx, 0.3, roboter.endeffektorz, 90, 360);
-    setForm();
+    //if(startAnim == true){
+     setForm();
+    //}
     //roboter.drawRobot();
     //ÄNDUNG Auswahl festlegen, wenn Kugel kugel zeichen usw!!!!
     roboter.drawRobot();
+   // gkugel.drawKugel(0.3, 2, 2, 1, 90, 360);
+
+
+    //X-Achse
+    glBegin(GL_QUADS);
+     glColor3f(0.0, 0.0, 1.0);
+     glVertex3f(0.0,0.0,0.0);
+     glVertex3f(0.0,0.0,0.1);
+     glVertex3f(20.0,0.0,0.1);
+     glVertex3f(20.0,0.0,0.0);
+    glEnd();
+
+    //Y-Achse
+    glBegin(GL_QUADS);
+     glColor3f(0.0, 1.0, 0.0);
+     glVertex3f(0.0,0.0,0.0);
+     glVertex3f(0.1,0.0,0.0);
+     glVertex3f(0.1,20.0,0.0);
+     glVertex3f(0.0,20.0,0.0);
+    glEnd();
+
+    //Z-Achse
+    glBegin(GL_QUADS);
+     glColor3f(1.0, 0.0, 0.0);
+     glVertex3f(0.0,0.0,0.0);
+     glVertex3f(0.1,0.0,0.0);
+     glVertex3f(0.1,0.0,20.0);
+     glVertex3f(0.0,0.0,20.0);
+    glEnd();
 
 }
 

@@ -45,11 +45,6 @@ public slots:
     void programmStart();
     void programmStopp();
 
-    // Set unfolding position
-    void setEndeffektorX(int x);
-    void setEndeffektorY(int y);
-    void setEndeffektorZ(int z);
-
 protected:
     void initializeGL();
     void resizeGL(int w, int h);
@@ -80,6 +75,7 @@ protected:
     int qubeCounter;
     float s;
     float h;
+    bool startAnim;
     robot roboter;
     QTimer* animtimer; // Timer needed to step animation every x msec
     int animstep;      // Current animation step (used to rotate triangle

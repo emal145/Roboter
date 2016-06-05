@@ -10,6 +10,7 @@ robot::robot() //: robotBottom(zylinder(0.8, 0.4, 0.0))
     robotBottom = zylinder(0.8, 0.4, 0.0);
     robotBottomRotY = 0.0;
     robotarms = new robotarm[nRobotarms];
+    robotBottomHeight = 0.8;
     //Rotationen der einzelnen Arme
     armsz = new float[nRobotarms];
 
@@ -24,14 +25,14 @@ robot::robot() //: robotBottom(zylinder(0.8, 0.4, 0.0))
 
     //Verschiebung auf x, y und z der Roboter gezeichnet werden soll
     x = 5;
-    y = 2;
+    y = 0 + robotBottomHeight;
     z = 0;
 
     //n-Roboterarme anlegen
     roboterHeights = new float[nRobotarms];
-    roboterHeights[0] = 3.0;
-    roboterHeights[1] = 4.0;
-    roboterHeights[2] = 2.0;
+    roboterHeights[0] = 4.0;
+    roboterHeights[1] = 3.0;
+    roboterHeights[2] = 0.3;
     for(int i = 0; i < nRobotarms; i++){
        robotarms[i] = robotarm(width, roboterHeights[i], x, y, z, i);
     }
@@ -47,9 +48,9 @@ robot::robot() //: robotBottom(zylinder(0.8, 0.4, 0.0))
         robotarms[k].rotateZ(0.0);
     }
 
-    endeffektorx = 0;
-    endeffektory = 0;
-    endeffektorz = 0;
+    endeffektorx = 0.0;
+    endeffektory = 0.0;
+    endeffektorz = 0.0;
  }
 
 
@@ -57,7 +58,7 @@ robot::robot() //: robotBottom(zylinder(0.8, 0.4, 0.0))
 void robot::drawRobot(){
     //calculatRotations(0);
     //Rotation der Einzelnen Arme durchführen weiter geben
-    robotBottom.drawZylinder(1.0, 2.0, x,y-width,z);
+    robotBottom.drawZylinder(1.0, robotBottomHeight, x,y-width,z);
     for(int i = 0; i < nRobotarms; i++){
         moveJoint(i, armsz[i]);
     }
@@ -79,15 +80,15 @@ void robot::setArmZ(int pos, float z){
     armsz[pos] = z;
 }
 
-void robot::setEndeffektorx(int x){
+void robot::setEndeffektorx(float x){
     this->endeffektorx = x;
 }
 
-void robot::setEndeffektory(int y){
+void robot::setEndeffektory(float y){
     this->endeffektory = y;
 }
 
-void robot::setEndeffektorz(int z){
+void robot::setEndeffektorz(float z){
     this->endeffektorz = z;
 }
 
@@ -96,6 +97,10 @@ void robot::calculatRotations(float* endeffektor){
     this->endeffektory = endeffektor[1];
     this->endeffektorz = endeffektor[2];
 
+   /* this->endeffektorx = 2;
+    this->endeffektory = -2;
+    this->endeffektorz = 1;
+*/
     float pi = 3.1415926;
     float theta = 0;
     float hyp = 0;
@@ -104,36 +109,48 @@ void robot::calculatRotations(float* endeffektor){
       if((x-endeffektor[0]) == 0){
           theta = 90.0;
         }else{
-          float gegenkat = x-endeffektor[0];
-          float ankat = endeffektor[2]-z;
+          float gegenkat = x-endeffektorx;
+          float ankat = z-endeffektorz;
           hyp = sqrt(pow(gegenkat,2.0) + pow(ankat,2.0));
           theta = acos(gegenkat/hyp)*180/pi;
       }
     //}
     robotBottomRotY = theta;
-
     //Arm Rotationen
     //Betrag (Hypotenuse) von Roboter bis zum Punkt
-    float c = sqrt(pow((x-endeffektorx),2) + pow((endeffektory),2));
+    float* vektorC = new float[3];
+    vektorC[0] = x-endeffektorx;
+    vektorC[1] = y-endeffektory;
+    vektorC[2] = z-endeffektorz;
+    float c = sqrt(pow(vektorC[0], 2) + pow(vektorC[2], 2));
+
+    //float c = sqrt(pow((x-endeffektorx),2) + pow((endeffektorz-z),2) + pow((endeffektory-y),2));
 
     //Winkel des ersten Arms mittels Kosinussatz berechnen
     //b^2 = c^2 + a^2 - 2ca*cos(beta)
     //Umgestellt nach cos(beta)
-    // cos(beta) = (c^2 + a^2 - 2ca) /b^2
-    float a = roboterHeights[0];
-    float b = roboterHeights[1];
-    float cos_arm1Theta = (pow(c,2) + pow(a,2) - 2*c*a) / pow(b,2);
+    // cos(beta) = (b^2 - c^2 - a^2)/(-2*a*c)
+    float a = roboterHeights[0]+width;
+    float b = roboterHeights[1]+width;
+    float cos_arm1Theta = (pow(b,2) - pow(c,2) - pow(a,2)) /(-2*a*c);
     float arm1Theta = acos(cos_arm1Theta)*180/pi;
 
     //Winkel des ersten Arms mittels Kosinussatz berechnen
     //c^2 = a^2 + b^2 - 2ab*cos(gamma)
     //Umgestellt nach cos(gamma)
-    // cos(gamma) = (a^2 + b^2 - 2ab) /c^2
-    float cos_arm2Theta = (pow(a,2) + pow(b,2) - 2*a*b) /pow(c,2);
+    // cos(gamma) = (c^2 - a^2 - b^2) / (-2*a*b)
+    float cos_arm2Theta = (pow(c,2) - pow(a,2) - pow(b,2)) / (-2*a*b);
     float arm2Theta = acos(cos_arm2Theta)*180/pi;
 
-    armsz[0] = arm1Theta;
-    armsz[1] = arm2Theta;
+    //Neigung nach Y - theta1 hinzufügen
+    float thetaY = atan(vektorC[1]/c)*180/pi;
+
+        arm1Theta = arm1Theta-thetaY;
+        arm2Theta = arm2Theta+thetaY;
+
+
+    armsz[0] = 90  - arm1Theta;
+    armsz[1] = 180 - arm2Theta;
     armsz[2] = (90 + (90-armsz[1])) - armsz[0];
 
 }

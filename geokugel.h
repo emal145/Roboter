@@ -1,6 +1,7 @@
 #ifndef GEOKUGEL_H
 #define GEOKUGEL_H
 #include "rotationsmatrix.h"
+#include "robot.h"
 
 #include <QWidget>
 #include <QOpenGLWidget>

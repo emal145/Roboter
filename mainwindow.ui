@@ -96,82 +96,12 @@
           </property>
          </widget>
         </item>
-        <item>
-         <layout class="QGridLayout" name="gridLayout_2">
-          <item row="0" column="0">
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string>Arm 0 - Rotation Z</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QDial" name="arm0Rotatez">
-            <property name="maximum">
-             <number>360</number>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_2">
-            <property name="text">
-             <string>Arm 1 - Rotation Z</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QDial" name="arm1Rotatez">
-            <property name="maximum">
-             <number>360</number>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QDial" name="arm2Rotatez">
-            <property name="maximum">
-             <number>360</number>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_3">
-            <property name="text">
-             <string>Arm 2 - Rotation Z</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
        </layout>
       </item>
      </layout>
     </item>
     <item>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0" alignment="Qt::AlignHCenter">
-       <widget class="QLabel" name="lbXRot">
-        <property name="text">
-         <string>X</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="2">
-       <widget class="QDial" name="zRot">
-        <property name="maximum">
-         <number>360</number>
-        </property>
-        <property name="wrapping">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1" alignment="Qt::AlignHCenter">
-       <widget class="QLabel" name="lbYRot">
-        <property name="text">
-         <string>Y</string>
-        </property>
-       </widget>
-      </item>
       <item row="2" column="0">
        <widget class="QDial" name="xRot">
         <property name="maximum">
@@ -204,7 +134,73 @@
       <item row="0" column="2" alignment="Qt::AlignHCenter">
        <widget class="QLabel" name="lbZRot">
         <property name="text">
-         <string>Z</string>
+         <string>Welt_Z</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" alignment="Qt::AlignHCenter">
+       <widget class="QLabel" name="lbXRot">
+        <property name="text">
+         <string>Welt_X</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" alignment="Qt::AlignHCenter">
+       <widget class="QLabel" name="lbYRot">
+        <property name="text">
+         <string>Welt_Y</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QDial" name="zRot">
+        <property name="maximum">
+         <number>360</number>
+        </property>
+        <property name="wrapping">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Arm 0 - Rotation Z</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QDial" name="arm0Rotatez">
+        <property name="maximum">
+         <number>360</number>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="5">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Arm 2 - Rotation Z</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Arm 1 - Rotation Z</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="4">
+       <widget class="QDial" name="arm1Rotatez">
+        <property name="maximum">
+         <number>360</number>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="5">
+       <widget class="QDial" name="arm2Rotatez">
+        <property name="maximum">
+         <number>360</number>
         </property>
        </widget>
       </item>

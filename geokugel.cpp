@@ -60,7 +60,7 @@ float* geokugel::drawQuad(float radius, float dx, float dy, float dz, float alph
              }
 
             while(beta <= teilBreite){
-            endeffektor = drawQuad(radius, x, y, z, alpha, beta);
+             endeffektor = drawQuad(radius, x, y, z, alpha, beta);
              beta+= 2;
             }
             alpha -= 2;
