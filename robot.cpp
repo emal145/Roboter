@@ -93,14 +93,14 @@ void robot::setEndeffektorz(float z){
 }
 
 void robot::calculatRotations(float* endeffektor){
-    this->endeffektorx = endeffektor[0];
+   /* this->endeffektorx = endeffektor[0];
     this->endeffektory = endeffektor[1];
     this->endeffektorz = endeffektor[2];
-
-   /* this->endeffektorx = 2;
-    this->endeffektory = -2;
-    this->endeffektorz = 1;
 */
+    this->endeffektorx = 2;
+    this->endeffektory = 2.0;
+    this->endeffektorz = 1;
+
     float pi = 3.1415926;
     float theta = 0;
     float hyp = 0;
@@ -119,37 +119,45 @@ void robot::calculatRotations(float* endeffektor){
     //Arm Rotationen
     //Betrag (Hypotenuse) von Roboter bis zum Punkt
     float* vektorC = new float[3];
-    vektorC[0] = x-endeffektorx;
-    vektorC[1] = y-endeffektory;
-    vektorC[2] = z-endeffektorz;
-    float c = sqrt(pow(vektorC[0], 2) + pow(vektorC[2], 2));
+    vektorC[0] = endeffektorx - x;
+    vektorC[1] = (endeffektory + roboterHeights[2]+width) - y;
+    vektorC[2] = endeffektorz - z;
 
-    //float c = sqrt(pow((x-endeffektorx),2) + pow((endeffektorz-z),2) + pow((endeffektory-y),2));
+    float a = roboterHeights[0]+width;
+    float b = roboterHeights[1]+width;
+
+    float c = sqrt(pow(vektorC[0], 2) + pow(vektorC[2], 2));
+    float c2 = sqrt(pow(vektorC[0], 2) + pow(vektorC[1], 2) + pow(vektorC[2], 2));
 
     //Winkel des ersten Arms mittels Kosinussatz berechnen
     //b^2 = c^2 + a^2 - 2ca*cos(beta)
     //Umgestellt nach cos(beta)
     // cos(beta) = (b^2 - c^2 - a^2)/(-2*a*c)
-    float a = roboterHeights[0]+width;
-    float b = roboterHeights[1]+width;
     float cos_arm1Theta = (pow(b,2) - pow(c,2) - pow(a,2)) /(-2*a*c);
     float arm1Theta = acos(cos_arm1Theta)*180/pi;
+
+    float cos_arm1Theta2 = (pow(vektorC[1],2) - pow(c2,2) - pow(c,2)) /(-2*c*c2);
+    float arm1Theta2 = acos(cos_arm1Theta2)*180/pi;
+
+    float cos_arm1Theta3 = (pow(b,2) - pow(c2,2) - pow(a,2)) /(-2*a*c2);
+    float arm1Theta3 = acos(cos_arm1Theta3)*180/pi;
+
+    arm1Theta = arm1Theta + (90 - arm1Theta + (arm1Theta2 - arm1Theta3));
 
     //Winkel des ersten Arms mittels Kosinussatz berechnen
     //c^2 = a^2 + b^2 - 2ab*cos(gamma)
     //Umgestellt nach cos(gamma)
     // cos(gamma) = (c^2 - a^2 - b^2) / (-2*a*b)
-    float cos_arm2Theta = (pow(c,2) - pow(a,2) - pow(b,2)) / (-2*a*b);
+    float cos_arm2Theta = (pow(c2,2) - pow(a,2) - pow(b,2)) / (-2*a*b);
     float arm2Theta = acos(cos_arm2Theta)*180/pi;
 
-    //Neigung nach Y - theta1 hinzufügen
+   /* //Neigung nach Y - theta1 hinzufügen
     float thetaY = atan(vektorC[1]/c)*180/pi;
 
-        arm1Theta = arm1Theta-thetaY;
-        arm2Theta = arm2Theta+thetaY;
-
-
-    armsz[0] = 90  - arm1Theta;
+    arm1Theta = arm1Theta-thetaY;
+    arm2Theta = arm2Theta+thetaY;
+*/
+    armsz[0] = arm1Theta;
     armsz[1] = 180 - arm2Theta;
     armsz[2] = (90 + (90-armsz[1])) - armsz[0];
 

@@ -174,7 +174,6 @@ void OGLWidget::initializeGL()
     glLoadIdentity();
 }
 
-
 void OGLWidget::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -190,12 +189,12 @@ void OGLWidget::paintGL()
     //glShadeModel(GL_FLAT);
     //k.drawKugel(0.3, roboter.endeffektorx, 0.3, roboter.endeffektorz, 90, 360);
     //if(startAnim == true){
-     setForm();
+    // setForm();
     //}
     //roboter.drawRobot();
     //ÄNDUNG Auswahl festlegen, wenn Kugel kugel zeichen usw!!!!
     roboter.drawRobot();
-   // gkugel.drawKugel(0.3, 2, 2, 1, 90, 360);
+    roboter.calculatRotations(gkugel.drawKugel(0.3, 2, 2, 1, 90, 360));
 
 
     //X-Achse
