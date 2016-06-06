@@ -20,11 +20,15 @@ OGLWidget::OGLWidget(QWidget *parent)
     gkugel = geokugel(1.0,0.0,0.0);
     k = kugel(1.0,0.0,0.0);
     zy = zylinder(1.0,1.0,1.0);
+    kegel = geoKegel(0.0,1.0,0.0);
     s = 3;
     h = 0;
     form = 0;
     qubeCounter = 0;
     qubeTop = false;
+    kegelHoehe = 0;
+    kegelBreite = 360;
+    kegelCounter = 0;
     roboter = robot();
     startAnim = false;
     // Setup the animation timer to fire every x msec
@@ -53,7 +57,9 @@ void OGLWidget::setForm(){
     } else if (form ==2){
         zy.drawZylinder(zyradius,zyhoehe,1.0,1.0,1.0);
     }
-
+    else if(form == 3){
+        roboter.calculatRotations(kegel.drawKegel(1.0, 1.5, kegelHoehe, kegelBreite, 2.0, 0.0, 2.0));
+    }
 
 }
 
@@ -65,10 +71,10 @@ void OGLWidget::stepAnimation()
         if(kreisHoehe < 90){
             animtimer->stop(); //TimerStop
         }
-        kreisBreite = kreisBreite - 15;
+        kreisBreite = kreisBreite - 30;
         if(kreisBreite == 0){
             kreisBreite = 360;
-            kreisHoehe = kreisHoehe-2;
+            kreisHoehe = kreisHoehe-4;
         }
 
     }else if(form ==1){
@@ -84,12 +90,19 @@ void OGLWidget::stepAnimation()
         }
         zyhoehe = qubeCounter *(-3.0f/360.0f);
     }
+    else if(form == 3){
+        if(kegelHoehe == 360){
+            animtimer->stop();
+        }
+        kegelBreite = kegelBreite - 30;
+        if(kegelBreite == 0){
+            kegelBreite = 360;
+            kegelHoehe = kegelHoehe + 30;
+        }
+
+    }
     qubeCounter++;
     update();      // Trigger redraw of scene with paintGL
-
-
-
-
 }
 
 void OGLWidget::setRotX(int newrx)
@@ -138,6 +151,11 @@ void OGLWidget::programmStart(){
  zyradius = 1.5;
  zyhoehe = 0;
  startAnim = true;
+ breitenCounter = 0;
+ kegelHoehe = 0;
+ kegelBreite = 360;
+ kegelCounter = 0;
+ 
  animtimer->start(1);//TimerStart (1= Milisekunden)
  update();
 }
@@ -188,14 +206,14 @@ void OGLWidget::paintGL()
     glScalef( scale, scale, scale ); // Scale along all axis
     //glShadeModel(GL_FLAT);
     //k.drawKugel(0.3, roboter.endeffektorx, 0.3, roboter.endeffektorz, 90, 360);
-    //if(startAnim == true){
-    // setForm();
-    //}
+    if(startAnim == true){
+        setForm();
+    }
     //roboter.drawRobot();
     //ÄNDUNG Auswahl festlegen, wenn Kugel kugel zeichen usw!!!!
     roboter.drawRobot();
-    roboter.calculatRotations(gkugel.drawKugel(0.3, 2, 2, 1, 90, 360));
-
+    //roboter.calculatRotations(gkugel.drawKugel(0.3, 2, -2, 1, 90, 360));
+    //kegel.drawKegel(1.0, 1.5, 360, 360, 2.0, 0.0, 2.0);
 
     //X-Achse
     glBegin(GL_QUADS);

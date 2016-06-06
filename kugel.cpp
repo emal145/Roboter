@@ -76,7 +76,6 @@ void kugel::drawQuad(float radius, float dx, float dy, float dz, float alpha, fl
     //Ursprung transformieren und die eigene rotation anwenden
     glTranslatef(0.0, jointheight, 0.0);
     glRotatef(rotz, 0.0f, 0.0f, 1.0f);
-
     glRotatef(roty, 0.0, 1.0, 0.0);
 
    glBegin(GL_QUADS);

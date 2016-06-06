@@ -73,6 +73,11 @@
             <string>Zylinder</string>
            </property>
           </item>
+        <item>
+           <property name="text">
+            <string>Kegel</string>
+           </property>
+          </item>
          </widget>
         </item>
         <item>
@@ -172,7 +177,7 @@
       <item row="2" column="3">
        <widget class="QDial" name="arm0Rotatez">
         <property name="maximum">
-         <number>360</number>
+         <number>180</number>
         </property>
        </widget>
       </item>
@@ -193,14 +198,20 @@
       <item row="2" column="4">
        <widget class="QDial" name="arm1Rotatez">
         <property name="maximum">
-         <number>360</number>
+         <number>180</number>
+        </property>
+        <property name="value">
+         <number>90</number>
         </property>
        </widget>
       </item>
       <item row="2" column="5">
        <widget class="QDial" name="arm2Rotatez">
         <property name="maximum">
-         <number>360</number>
+         <number>180</number>
+        </property>
+        <property name="value">
+         <number>90</number>
         </property>
        </widget>
       </item>

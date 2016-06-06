@@ -3,13 +3,14 @@
 #include "kugel.h"
 #include "quader.h"
 #include "rotationsmatrix.h"
+#include "kegel.h"
 
 class robotarm
 {
 public:
     robotarm();
     ~robotarm();
-    robotarm(float width, float height, float x, float y, float z, int robotPosition);
+    robotarm(float width, float height, float x, float y, float z, int robotPosition, bool endArm);
 
     void drawRobot();
     void setWidth(float width);
@@ -30,6 +31,7 @@ protected:
     kugel kug;
     quader quad;
     robotarm* childArm;
+    Kegel keg;
     int robotPosition;
     float rotx;
     float roty;
@@ -43,6 +45,7 @@ protected:
     float *rotationsZ;
     float *jointaddHeights;
     float *jointaddHeightsKugel;
+    bool endArm;
 
 
     rotationsmatrix rotm;

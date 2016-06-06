@@ -8,10 +8,11 @@ robotarm::~robotarm(){
 
 }
 
-robotarm::robotarm(float width, float height, float x, float y, float z, int robotPosition)
+robotarm::robotarm(float width, float height, float x, float y, float z, int robotPosition, bool endArm)
 {
     quad = quader(robotPosition);
     kug = kugel(0.7, 0.7, 0.7, robotPosition);
+    keg = Kegel(0.8,0.4,0.0, robotPosition);
     rotm = rotationsmatrix();
     rotx = 0;
     roty = 0;
@@ -26,25 +27,33 @@ robotarm::robotarm(float width, float height, float x, float y, float z, int rob
     this->y = y;
     this->z = z;
     this->childArm = 0;
+    this->endArm = endArm;
 }
 void robotarm::drawRobot(){
 
    if(rotz != 0){
-       if(robotPosition == 0){
-            quad.rotateZ(rotz);
+       if(endArm){
+          keg.rotateZ(rotz);
        }
        else{
-           quad.rotateZ(rotz);
+          quad.rotateZ(rotz);
        }
        kug.setRotationZ(rotz);
    }
-   quad.rotateY(roty);
-   kug.setRotationY(roty);
 
-   quad.setRotationsZvalue(rotationsZ, jointaddHeights);
+   kug.setRotationY(roty);
    kug.setRotationsZvalue(rotationsZ, jointaddHeights);
-   quad.drawCube(0.8,0.4,0.0,width, height, x, y, z, true);
    kug.drawKugel(width/2.0, x, y+width/2, z, 90, 360);
+
+   if(endArm){
+       keg.rotateY(roty);
+       keg.setRotationsZvalue(rotationsZ, jointaddHeights);
+       keg.drawKegel(width/2,height,360,x,y,z);
+   }else{
+       quad.rotateY(roty);
+       quad.setRotationsZvalue(rotationsZ, jointaddHeights);
+       quad.drawCube(0.8,0.4,0.0,width, height, x, y, z, true);
+   }
 
 }
 

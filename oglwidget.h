@@ -9,6 +9,7 @@
 #include "geokugel.h"
 #include "geoquad.h"
 #include "robot.h"
+#include "geoKegel.h"
 
 class OGLWidget : public QOpenGLWidget,
                   protected QOpenGLFunctions
@@ -61,6 +62,7 @@ protected:
     table t;
     geokugel gkugel;
     kugel k;
+    geoKegel kegel;
     zylinder zy;
     double alpha;
     double beta;
@@ -69,6 +71,9 @@ protected:
     float zyradius;
     float zyhoehe;
     int breitenCounter;
+    int kegelHoehe;
+    int kegelBreite;
+    int kegelCounter = 0;
     int form;
     GeoQuad quader;
     bool qubeTop;

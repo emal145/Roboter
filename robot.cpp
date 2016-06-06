@@ -10,7 +10,7 @@ robot::robot() //: robotBottom(zylinder(0.8, 0.4, 0.0))
     robotBottom = zylinder(0.8, 0.4, 0.0);
     robotBottomRotY = 0.0;
     robotarms = new robotarm[nRobotarms];
-    robotBottomHeight = 0.8;
+    robotBottomHeight = 1.2;
     //Rotationen der einzelnen Arme
     armsz = new float[nRobotarms];
 
@@ -32,9 +32,13 @@ robot::robot() //: robotBottom(zylinder(0.8, 0.4, 0.0))
     roboterHeights = new float[nRobotarms];
     roboterHeights[0] = 4.0;
     roboterHeights[1] = 3.0;
-    roboterHeights[2] = 0.3;
+    roboterHeights[2] = 1.0;
+    bool endArm = false;
     for(int i = 0; i < nRobotarms; i++){
-       robotarms[i] = robotarm(width, roboterHeights[i], x, y, z, i);
+        if(i == nRobotarms-1){
+            endArm = true;
+        }
+       robotarms[i] = robotarm(width, roboterHeights[i], x, y, z, i, endArm);
     }
 
     //Jedem Arm einen Nachfolger zuweisen
@@ -93,13 +97,13 @@ void robot::setEndeffektorz(float z){
 }
 
 void robot::calculatRotations(float* endeffektor){
-   /* this->endeffektorx = endeffektor[0];
-    this->endeffektory = endeffektor[1];
+    this->endeffektorx = endeffektor[0];
+    this->endeffektory = endeffektor[1] + (roboterHeights[2]+width);
     this->endeffektorz = endeffektor[2];
-*/
-    this->endeffektorx = 2;
-    this->endeffektory = 2.0;
-    this->endeffektorz = 1;
+
+    /*this->endeffektorx = 2.0;
+    this->endeffektory = (-2.0 + width) + (roboterHeights[2]+width);
+    this->endeffektorz = 1.0;*/
 
     float pi = 3.1415926;
     float theta = 0;
@@ -120,7 +124,7 @@ void robot::calculatRotations(float* endeffektor){
     //Betrag (Hypotenuse) von Roboter bis zum Punkt
     float* vektorC = new float[3];
     vektorC[0] = endeffektorx - x;
-    vektorC[1] = (endeffektory + roboterHeights[2]+width) - y;
+    vektorC[1] = endeffektory - y;
     vektorC[2] = endeffektorz - z;
 
     float a = roboterHeights[0]+width;
@@ -142,7 +146,12 @@ void robot::calculatRotations(float* endeffektor){
     float cos_arm1Theta3 = (pow(b,2) - pow(c2,2) - pow(a,2)) /(-2*a*c2);
     float arm1Theta3 = acos(cos_arm1Theta3)*180/pi;
 
-    arm1Theta = arm1Theta + (90 - arm1Theta + (arm1Theta2 - arm1Theta3));
+    if(vektorC[1] <= 0.0){
+        arm1Theta = arm1Theta + (90 - arm1Theta + (arm1Theta2 - arm1Theta3));
+    }else{
+        arm1Theta = 90 - (arm1Theta2 + arm1Theta3);
+
+    }
 
     //Winkel des ersten Arms mittels Kosinussatz berechnen
     //c^2 = a^2 + b^2 - 2ab*cos(gamma)

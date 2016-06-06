@@ -17,7 +17,7 @@ geokugel::geokugel(float r, float g, float b){
 
 
 float* geokugel::drawQuad(float radius, float dx, float dy, float dz, float alpha, float beta){
-    float breite = 2; //10*pi/180;
+    float breite = 4.0; //10*pi/180;
 
     float *points1 = rotm.rotatez(1.0, radius, 0, 0, alpha);
     points1 = rotm.rotatey(1.0, points1[0], points1[1], points1[2], beta);

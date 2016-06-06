@@ -22,7 +22,9 @@ SOURCES += main.cpp\
     geoquad.cpp \
     zylinder.cpp \
     geokugel.cpp \
-    quader.cpp
+    quader.cpp \
+    kegel.cpp \
+    geokegel.cpp
 
 HEADERS  += mainwindow.h \
     oglwidget.h \
@@ -34,6 +36,8 @@ HEADERS  += mainwindow.h \
     geoquad.h \
     zylinder.h \
     geokugel.h \
-    quader.h
+    quader.h \
+    kegel.h \
+    geokegel.h
 
 FORMS    += mainwindow.ui
