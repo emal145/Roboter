@@ -56,16 +56,12 @@ void OGLWidget::setForm(){
         //Würfel
     } else if (form ==1){
         for(int i = 0; i < 4; i++){
-        roboter.calculatRotations(quader.drawCube(0.0,0.0,1.0,s,h,qubeCounter, qubeSideCounter,2.0,0.0,1.0, qubeTop));
-    }
-        //Zylinder
+        roboter.calculatRotations(quader.drawCube(0.0,0.0,1.0,s,h,qubeCounter, qubeSideCounter,1.0,0.0,1.0, qubeTop));
+        }
+    //Zylinder
     } else if (form ==2){
         roboter.calculatRotations(zy.drawZylinder(1.0, 2.0, zylinderCounter, zylinderBreite, 2.0,0.0,2.0));
     }
-    else if(form == 3){
-        roboter.calculatRotations(kegel.drawKegel(1.0, 1.5, kegelHoehe, kegelBreite, 2.0, 0.0, 2.0));
-    }
-
 }
 
 //Hier prüfen, ob Kreis oder Würfel und dann die entsprechende Zeit
