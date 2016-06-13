@@ -22,9 +22,10 @@ OGLWidget::OGLWidget(QWidget *parent)
     zy = geozylinder(1.0,1.0,1.0);
     kegel = geoKegel(0.0,1.0,0.0);
     s = 2.0;
-    h = 0;
+    h = 2.0;
     form = 0;
     qubeCounter = 0;
+    qubeSideCounter = 1;
     qubeTop = false;
     kegelHoehe = 0;
     kegelBreite = 360;
@@ -55,7 +56,7 @@ void OGLWidget::setForm(){
         //Würfel
     } else if (form ==1){
         for(int i = 0; i < 4; i++){
-        roboter.calculatRotations(quader.drawCube(0.0,0.0,1.0,s,h,qubeCounter,i,2,1,0, qubeTop));
+        roboter.calculatRotations(quader.drawCube(0.0,0.0,1.0,s,h,qubeCounter, qubeSideCounter,2.0,0.0,1.0, qubeTop));
     }
         //Zylinder
     } else if (form ==2){
@@ -82,11 +83,15 @@ void OGLWidget::stepAnimation()
         }
 
     }else if(form ==1){
-        if(qubeCounter == 300){
+        if(qubeCounter == 30){
               qubeTop = true;
               animtimer->stop();
         }
-        this->h = 2.0/300;
+        qubeSideCounter++;
+        if(qubeSideCounter > 4){
+            qubeSideCounter = 1;
+            qubeCounter++;
+        }
 
     }else if(form ==2){
         if(zylinderCounter == 30){
@@ -98,10 +103,9 @@ void OGLWidget::stepAnimation()
             zylinderCounter++;
             zylinderBreite = 0;
         }
-        zylinderBreite+=50;
+        zylinderBreite+=60;
 
     }
-    qubeCounter++;
     update();      // Trigger redraw of scene with paintGL
 }
 
@@ -244,6 +248,7 @@ void OGLWidget::paintGL()
     //kegel.drawKegel(2.0, 2.5, 10, 20, 2.0, 0.0, 2.0);
     //gkugel.drawKugel(2.0, 0.0,0.0,2.0, 90, 360);
     //zy.drawZylinder(1.0, 2.0, 15, 160, 0.0,0.0,0.0);
+    //quader.drawCube(0.0,0.0,1.0,2.0,2.0,30,2,1,0, qubeTop);
 
     //X-Achse
     glBegin(GL_QUADS);

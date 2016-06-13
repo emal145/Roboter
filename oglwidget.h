@@ -77,6 +77,7 @@ protected:
     int kegelCounter;
     int zylinderBreite;
     int zylinderCounter;
+    int qubeSideCounter;
     int form;
     GeoQuad quader;
     bool qubeTop;

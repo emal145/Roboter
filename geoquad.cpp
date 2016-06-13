@@ -15,35 +15,40 @@ GeoQuad::GeoQuad()
 }
 
 void GeoQuad::drawGroundorTop(float s, float h){
-    //Startkoordinate ergibt sich durch die hälfte der Seitenlänge,
-    //damit das Koordinatensystem in der Mitte des Würfels ist.
+    float *quad1 = new float[3];
+    float *quad2 = new float[3];
+    float *quad3 = new float[3];
+    float *quad4 = new float[3];
 
-   /*Startkoordinaten für 1 Teilviereck
-    *p, 0, p
-    *p, 0 + höhe, p
-    *p, 0+höhe , -p
-    *p, 0,-p
-    */
-    //dadurch ergeben sich neue Start x, y, z -Koordinatem:
-    float p = s/2;
-    float x = p;
-    float y = 0; //y ist negativ, damit der Startpunkt unterhalb des Koordinatensystems ist
-    float z = p;
-    rotm = rotationsmatrix();
-   //Teilviereck jeder Seite
-   float *quad1 = rotm.rotatey(1.0,x,y+h,z, 90.0f);
-   float *quad2 = rotm.rotatey(1.0,x,y+h,z, 180.0f);
-   float *quad3 = rotm.rotatey(1.0,x,y+h,z, 270.0f);
-   float *quad4 = rotm.rotatey(1.0,x,y+h,z, 360.0f);
+     rotationsmatrix rotm = rotationsmatrix();
 
-   glBegin(GL_QUADS);
-    glColor3f(red, yellow, blue);
-    glVertex3f(dx + quad1[0], dy + quad1[1], dz + quad1[2]);
-    glVertex3f(dx + quad2[0], dy + quad2[1], dz + quad2[2]);
-    glVertex3f(dx + quad3[0], dy + quad3[1], dz + quad3[2]);
-    glVertex3f(dx + quad4[0], dy + quad4[1], dz + quad4[2]);
-   glEnd();
+        quad1 = rotm.rotatey(1.0, s, h, 0.0, 0.0);
+        quad2 = rotm.rotatey(1.0, s, h, s, 0.0);
+        quad3 = rotm.rotatey(1.0, 0.0, h, s, 0.0);
+        quad4 = rotm.rotatey(1.0, 0.0, h, 0.0, 0.0);
 
+        quad1[1] = quad1[1] + dy;
+        quad2[1] = quad2[1] + dy;
+        quad3[1] = quad3[1] + dy;
+        quad4[1] = quad4[1] + dy;
+
+        quad1[0] = quad1[0] + dx;
+        quad2[0] = quad2[0] + dx;
+        quad3[0] = quad3[0] + dx;
+        quad4[0] = quad4[0] + dx;
+
+        quad1[2] = quad1[2] + dz;
+        quad2[2] = quad2[2] + dz;
+        quad3[2] = quad3[2] + dz;
+        quad4[2] = quad4[2] + dz;
+
+        glBegin(GL_QUADS);
+        glColor3f(red, yellow, blue);
+        glVertex3f(quad1[0],quad1[1], quad1[2]);
+        glVertex3f(quad2[0],quad2[1], quad2[2]);
+        glVertex3f(quad3[0],quad3[1], quad3[2]);
+        glVertex3f(quad4[0],quad4[1], quad4[2]);
+        glEnd();
 }
 
 /* Methode zum Zeichnen eines 3D-Vierecks
@@ -54,46 +59,67 @@ void GeoQuad::drawGroundorTop(float s, float h){
 
  * dx, dy, dz sind die Werte, welche den Würfel verschieben
  */
-float* GeoQuad::drawQuads(float s, float h){
-     //Startkoordinate ergibt sich durch die hälfte der Seitenlänge,
-    //damit das Koordinatensystem in der Mitte des Würfels ist.
+float* GeoQuad::drawQuads(float s, float h, float stepheight, int sideCounter){
+    float *quad1 = new float[3];
+    float *quad2 = new float[3];
+    float *quad3 = new float[3];
+    float *quad4 = new float[3];
 
-   /*Startkoordinaten für 1 Teilviereck
-    *p, 0, p
-    *p, 0 + höhe, p
-    *p, 0 + höhe , -p
-    *p, 0, -p
-    */
-    //dadurch ergeben sich neue Start x, y, z -Koordinatem:
-    float p = s/2;
-    float x = p;
-    float y = 0;
-    float z = p;
-    rotm = rotationsmatrix();
-   //Teilviereck jeder Seite
-   float *quad1 = rotm.rotatey(1.0,x,y,z, counter*90.0f); //Unten links
-   float *quad2 = rotm.rotatey(1.0,x,y+h,z, counter*90.0f); //Oben links
-   float *quad3 = rotm.rotatey(1.0,x,y+h,-z, counter*90.0f); //Oben rechts
-   float *quad4 = rotm.rotatey(1.0,x,y,-z, counter*90.0f); //Unten rechts
+    rotationsmatrix rotm = rotationsmatrix();
+
+        quad1 = rotm.rotatey(1.0, s, 0.0, 0.0, 0.0);
+        quad2 = rotm.rotatey(1.0, s, 0.0, s, 0.0);
+        quad3 = rotm.rotatey(1.0, s, h, s, 0.0 );
+        quad4 = rotm.rotatey(1.0, s, h, 0.0, 0.0 );
+
+        quad1 = rotm.rotatey(s/2, quad1[0], quad1[1], quad1[2], (sideCounter*90));
+        quad2 = rotm.rotatey(s/2, quad2[0], quad2[1], quad2[2], (sideCounter*90));
+        quad3 = rotm.rotatey(s/2, quad3[0], quad3[1], quad3[2], (sideCounter*90));
+        quad4 = rotm.rotatey(s/2, quad4[0], quad4[1], quad4[2], (sideCounter*90));
+
+        quad1[1] = quad1[1] + dy + stepheight;
+        quad2[1] = quad2[1] + dy + stepheight;
+        quad3[1] = quad3[1] + dy + stepheight;
+        quad4[1] = quad4[1] + dy + stepheight;
+
+       float xversatz = 0.0;
+       float zversatz = 0.0;
 
 
-   glBegin(GL_QUADS);
-    glColor3f(red, yellow, blue);
-    glVertex3f(dx + quad1[0], dy + quad1[1], dz + quad1[2]);
-    glVertex3f(dx + quad2[0], dy + quad2[1], dz + quad2[2]);
-    glVertex3f(dx + quad3[0], dy + quad3[1], dz + quad3[2]);
-    glVertex3f(dx + quad4[0], dy + quad4[1], dz + quad4[2]);
-    glEnd();
+       if(sideCounter == 1){
+           xversatz = s;
+       }
+       else if(sideCounter == 2){
+           xversatz = s;
+           zversatz = s;
+       }
+       else if(sideCounter == 3){
+           zversatz = s;
+       }
 
-   quad4[0] = dx + quad4[0];
-   quad4[1] = dy + quad4[1];
-   quad4[2] = dz + quad4[2];
+        quad1[0] = quad1[0] + dx + xversatz;
+        quad2[0] = quad2[0] + dx + xversatz;
+        quad3[0] = quad3[0] + dx + xversatz;
+        quad4[0] = quad4[0] + dx + xversatz;
 
-    return quad2;
+        quad1[2] = quad1[2] + dz + zversatz;
+        quad2[2] = quad2[2] + dz + zversatz;
+        quad3[2] = quad3[2] + dz + zversatz;
+        quad4[2] = quad4[2] + dz + zversatz;
+
+        glBegin(GL_QUADS);
+        glColor3f(red, yellow, blue);
+        glVertex3f(quad1[0],quad1[1], quad1[2]);
+        glVertex3f(quad2[0],quad2[1], quad2[2]);
+        glVertex3f(quad3[0],quad3[1], quad3[2]);
+        glVertex3f(quad4[0],quad4[1], quad4[2]);
+        glEnd();
+
+    return quad4;
 }
 
 
-float* GeoQuad::drawCube(float r, float y, float b, float s, float h, float cubesheight, int cubesSideCounter, float dx, float dy, float dz, bool top){
+float* GeoQuad::drawCube(float r, float y, float b, float s, float h, int qubescounter, int sideCounter, float dx, float dy, float dz, bool top){
     //Höhe der Teildreiecke
     this->red = r;
     this->yellow = y;
@@ -112,20 +138,19 @@ float* GeoQuad::drawCube(float r, float y, float b, float s, float h, float cube
     endpoints[3] = 0;
 
     if(this->counter == 1){
-     // drawGroundorTop(s, 0);
+      drawGroundorTop(s, 0);
     }
 
-    float maxHeight = h*(cubesheight-1);
-    for(int i = 0; i < maxHeight; i++){
-     for(int x = 1; x < 5; x++){
-          drawQuads(s,h);
-          this->counter = x;
-       }
+    float newHeight = h/30;
+    for(int i = 0; i < (qubescounter-1); i++){
+        for(int x = 1; x <= 4; x++){
+         drawQuads(s, newHeight, newHeight*i, x);
+        }
     }
 
-    this->dy = h * (cubesheight-1);
-    this->counter = cubesSideCounter;
-     endpoints = drawQuads(s,h);
+    for(int x = 1; x <= sideCounter; x++){
+     endpoints = drawQuads(s, newHeight, newHeight*(qubescounter-1), x);
+    }
 
     if(top == true){
       drawGroundorTop(s, h);

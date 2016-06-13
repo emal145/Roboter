@@ -42,7 +42,7 @@ void geozylinder::drawBoden(float radius, float dx, float dy, float dz){
 
 
 float* geozylinder::drawQuad(float radius, float height, float stepheight, int breite, float dx, float dy, float dz){
-   float *quad1 = new float[3];
+    float *quad1 = new float[3];
     float *quad2 = new float[3];
     float *quad3 = new float[3];
     float *quad4 = new float[3];
@@ -51,10 +51,10 @@ float* geozylinder::drawQuad(float radius, float height, float stepheight, int b
 
     for(double i = 1; i <= breite; i++){
 
-        quad1 = rotm.rotatey(1.0,radius, 0.0, 0.0, i);
-        quad2 = rotm.rotatey(1.0,radius, 0.0, 0.0, i+1.0f);
-        quad3 = rotm.rotatey(1.0,radius, 0.0, 0.0, i+1.0f);;
-        quad4 = rotm.rotatey(1.0,radius, 0.0, 0.0, i);
+        quad1 = rotm.rotatey(radius,radius, 0.0, 0.0, i);
+        quad2 = rotm.rotatey(radius,radius, 0.0, 0.0, i+1.0f);
+        quad3 = rotm.rotatey(radius,radius, 0.0, 0.0, i+1.0f);;
+        quad4 = rotm.rotatey(radius,radius, 0.0, 0.0, i);
 
         quad1[1] = quad1[1] + dy + stepheight;
         quad2[1] = quad2[1] + dy + stepheight;

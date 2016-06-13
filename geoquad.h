@@ -8,11 +8,11 @@ class GeoQuad
 { 
 public:
     GeoQuad();
-    float* drawCube(float red, float yellow, float blue, float s, float h, float cubesheight, int cubesSideCounter, float dx, float dy, float dz, bool top);
+    float* drawCube(float red, float yellow, float blue, float s, float h, int qubescounter, int sideCounter, float dx, float dy, float dz, bool top);
 
 private:
     void drawGroundorTop(float s, float h);
-    float* drawQuads(float s, float h);
+    float* drawQuads(float s, float h, float stepheight,int sideCounter);
 
     float red;
     float yellow;
