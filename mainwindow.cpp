@@ -13,14 +13,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     // Handle slider usage
-    connect(ui->xRot, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(setRotX(int)));
-    connect(ui->yRot, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(setRotY(int)));
-    connect(ui->zRot, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(setRotZ(int)));
+    connect(ui->sliderX, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(setRotX(int)));
+    connect(ui->sliderY, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(setRotY(int)));
+    connect(ui->sliderZ, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(setRotZ(int)));
 
     //connect(ui->zoom, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(setZoom(int)));
-    connect(ui->arm0Rotatez, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(setArm0Rotation(int)));
-    connect(ui->arm1Rotatez, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(setArm1Rotation(int)));
-    connect(ui->arm2Rotatez, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(setArm2Rotation(int)));
+    connect(ui->sliderArm0, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(setArm0Rotation(int)));
+    connect(ui->sliderArm1, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(setArm1Rotation(int)));
+    connect(ui->sliderArm2, SIGNAL(valueChanged(int)), ui->glwidget, SLOT(setArm2Rotation(int)));
 
     connect(ui->resetR, SIGNAL(clicked(bool)), ui->glwidget, SLOT(resetRotation()));
     //Start + Stopp Button
@@ -43,17 +43,14 @@ MainWindow::~MainWindow()
 void MainWindow::onChangeRotation(int dx, int dy, int dz)
 {
     // To apply the requested rotation deltas, we increment...
-    int newx = ui->xRot->value() + dx;
-    int newy = ui->yRot->value() + dy;
-    int newz = ui->zRot->value() + dz;
+    int newx = ui->sliderX->value() + dx;
+    int newy = ui->sliderY->value() + dy;
+    int newz = ui->sliderZ->value() + dz;
 
     // ... and set the sliders to the new angles mod 360 (to ensure 0..359)
-    ui->xRot->setValue( newx % 360 );
-    ui->yRot->setValue( newy % 360 );
-    ui->zRot->setValue( newz % 360 );
-
-
-
+    ui->sliderX->setValue( newx % 360 );
+    ui->sliderY->setValue( newy % 360 );
+    ui->sliderZ->setValue( newz % 360 );
     // NB: SetValue will emit valueChanged signal, so the scene gets updated
 }
 
