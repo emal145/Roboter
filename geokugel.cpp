@@ -28,8 +28,8 @@ float* geokugel::drawQuad(float radius, float dx, float dy, float dz, float alph
     float *points4 = rotm.rotatez(1.0, radius, 0, 0, alpha);
     points4 = rotm.rotatey(1.0, points4[0], points4[1], points4[2], beta+breite);
 
-   glBegin(GL_QUADS);
-   glColor4f(red, green, blue, 1.0);
+    glBegin(GL_QUADS);
+    glColor4f(red, green, blue, 1.0);
     glVertex3f(dx + points1[0], dy +points1[1], dz + points1[2]);
     glVertex3f(dx + points2[0], dy + points2[1], dz + points2[2]);
     glVertex3f(dx + points3[0], dy + points3[1], dz + points3[2]);

@@ -19,9 +19,9 @@ OGLWidget::OGLWidget(QWidget *parent)
     quader = GeoQuad();
     gkugel = geokugel(1.0,0.0,0.0);
     k = kugel(1.0,0.0,0.0);
-    zy = zylinder(1.0,1.0,1.0);
+    zy = geozylinder(1.0,1.0,1.0);
     kegel = geoKegel(0.0,1.0,0.0);
-    s = 3;
+    s = 2.0;
     h = 0;
     form = 0;
     qubeCounter = 0;
@@ -29,6 +29,8 @@ OGLWidget::OGLWidget(QWidget *parent)
     kegelHoehe = 0;
     kegelBreite = 360;
     kegelCounter = 0;
+    zylinderBreite = 0;
+    zylinderCounter = 0;
     roboter = robot();
     startAnim = false;
     // Setup the animation timer to fire every x msec
@@ -49,13 +51,15 @@ void OGLWidget::changeComboBox(int auswahl){
 void OGLWidget::setForm(){
     //Kugel
     if(form ==0){
-        roboter.calculatRotations(gkugel.drawKugel(2.0, 0.0,0.0,2.0, kreisHoehe, kreisBreite));
+        roboter.calculatRotations(gkugel.drawKugel(2.0, 0.0, 0.0, 2.0, kreisHoehe, kreisBreite));
         //Würfel
     } else if (form ==1){
-        quader.drawCube(0.0,0.0,1.0,s,h,2,1,0, qubeTop);
+        for(int i = 0; i < 4; i++){
+        roboter.calculatRotations(quader.drawCube(0.0,0.0,1.0,s,h,qubeCounter,i,2,1,0, qubeTop));
+    }
         //Zylinder
     } else if (form ==2){
-        zy.drawZylinder(zyradius,zyhoehe,1.0,1.0,1.0);
+        roboter.calculatRotations(zy.drawZylinder(1.0, 2.0, zylinderCounter, zylinderBreite, 2.0,0.0,2.0));
     }
     else if(form == 3){
         roboter.calculatRotations(kegel.drawKegel(1.0, 1.5, kegelHoehe, kegelBreite, 2.0, 0.0, 2.0));
@@ -82,23 +86,19 @@ void OGLWidget::stepAnimation()
               qubeTop = true;
               animtimer->stop();
         }
-        h = qubeCounter * (3.0f/360.0f);
+        this->h = 2.0/300;
 
     }else if(form ==2){
-        if(zyhoehe == -3){
-            animtimer->stop();
+        if(zylinderCounter == 30){
+            if(zylinderBreite >= 360){
+                animtimer->stop();
+            }
         }
-        zyhoehe = qubeCounter *(-3.0f/360.0f);
-    }
-    else if(form == 3){
-        if(kegelHoehe == 360){
-            animtimer->stop();
+        if(zylinderBreite >= 360){
+            zylinderCounter++;
+            zylinderBreite = 0;
         }
-        kegelBreite = kegelBreite - 30;
-        if(kegelBreite == 0){
-            kegelBreite = 360;
-            kegelHoehe = kegelHoehe + 30;
-        }
+        zylinderBreite+=50;
 
     }
     qubeCounter++;
@@ -155,6 +155,8 @@ void OGLWidget::programmStart(){
  kegelHoehe = 0;
  kegelBreite = 360;
  kegelCounter = 0;
+ zylinderCounter = 0;
+ zylinderBreite = 0;
  
  animtimer->start(1);//TimerStart (1= Milisekunden)
  update();
@@ -179,11 +181,34 @@ void OGLWidget::initializeGL()
     glClearColor(0,0,0,1);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_COLOR_MATERIAL);
-    glEnable(GL_LIGHT0);
-   // glEnable(GL_LIGHTING);
     glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
 
+    //LICHTEINSTELLUNG
+    /*
+    glShadeModel(GL_SMOOTH);
+    glEnable(GL_LIGHTING);
+
+    float light_pos[] = {-6.f, 10.f, -4.f, 5.f};
+    glLightfv(GL_LIGHT1,GL_POSITION, light_pos);
+
+    float light_diffuse[] = {0.2f, 0.2f,0.2f,0.2f};
+    glLightfv(GL_LIGHT1, GL_DIFFUSE, light_diffuse);
+
+    glEnable(GL_LIGHT1);
+
+    float light_pos2[] = {6.f, 10.f, 10.f, 5.f};
+    glLightfv(GL_LIGHT2,GL_POSITION, light_pos2);
+
+    float light_diffuse2[] = {0.2f, 0.2f,0.2f,0.2f};
+    glLightfv(GL_LIGHT2, GL_DIFFUSE, light_diffuse2);
+
+    glEnable(GL_LIGHT2);
+    glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+    glEnable(GL_COLOR_MATERIAL);
+   */
+
     glOrtho(-50,50,-50,50,2,10);
+
     // For wireframe replace GL_FILL with GL_LINE
     glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
     glMatrixMode(GL_PROJECTION);
@@ -203,7 +228,7 @@ void OGLWidget::paintGL()
 
     // Apply scaling
     float scale = zoom/100.0;
-    glScalef( scale, scale, scale ); // Scale along all axis
+    glScalef(scale, scale, scale ); // Scale along all axis
     //glShadeModel(GL_FLAT);
     //k.drawKugel(0.3, roboter.endeffektorx, 0.3, roboter.endeffektorz, 90, 360);
     if(startAnim == true){
@@ -213,7 +238,12 @@ void OGLWidget::paintGL()
     //ÄNDUNG Auswahl festlegen, wenn Kugel kugel zeichen usw!!!!
     roboter.drawRobot();
     //roboter.calculatRotations(gkugel.drawKugel(0.3, 2, -2, 1, 90, 360));
-    //kegel.drawKegel(1.0, 1.5, 360, 360, 2.0, 0.0, 2.0);
+
+    //TEST GEOMETRIEN
+
+    //kegel.drawKegel(2.0, 2.5, 10, 20, 2.0, 0.0, 2.0);
+    //gkugel.drawKugel(2.0, 0.0,0.0,2.0, 90, 360);
+    //zy.drawZylinder(1.0, 2.0, 15, 160, 0.0,0.0,0.0);
 
     //X-Achse
     glBegin(GL_QUADS);

@@ -11,7 +11,6 @@ public:
     zylinder(float red, float green, float blue);
     void drawZylinder(float radius, float height, float dx, float dy, float dz);
 
-
 private:
     float red;
     float green;

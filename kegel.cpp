@@ -29,7 +29,7 @@ void Kegel::drawQuad(float radius, float hoehe){
     float *quad4 = new float[3];
 
     float pi = 3.1415926;
-    float gegenkat = sin(pi/180)*radius;
+    float gegenkat = tan(pi/180)*radius;
 
     quad1[0] = radius;
     quad1[1] = 0.0;

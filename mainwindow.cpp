@@ -51,9 +51,6 @@ void MainWindow::onChangeRotation(int dx, int dy, int dz)
     ui->xRot->setValue( newx % 360 );
     ui->yRot->setValue( newy % 360 );
     ui->zRot->setValue( newz % 360 );
-
-
-
     // NB: SetValue will emit valueChanged signal, so the scene gets updated
 }
 

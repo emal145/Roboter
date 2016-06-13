@@ -110,9 +110,9 @@ float* rotationsmatrix::nrotatey(float r, float x, float y, float z, float beta)
      * --           --
      */
     float *rpoints = new float[3];
-    rpoints[0] = x * cosToDegree(beta) + z * sinToDegree(beta);
+    rpoints[0] = x * cosToDegree(beta) + z * -sinToDegree(beta);
     rpoints[1] = r*y;
-    rpoints[2] = x * (-sinToDegree(beta)) + z * cosToDegree(beta);
+    rpoints[2] = x * sinToDegree(beta) + z * cosToDegree(beta);
 
     return rpoints;
 }

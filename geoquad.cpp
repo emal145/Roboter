@@ -38,10 +38,10 @@ void GeoQuad::drawGroundorTop(float s, float h){
 
    glBegin(GL_QUADS);
     glColor3f(red, yellow, blue);
-    glVertex3f(quad1[0],quad1[1], quad1[2]);
-    glVertex3f(quad2[0],quad2[1], quad2[2]);
-    glVertex3f(quad3[0],quad3[1], quad3[2]);
-    glVertex3f(quad4[0],quad4[1], quad4[2]);
+    glVertex3f(dx + quad1[0], dy + quad1[1], dz + quad1[2]);
+    glVertex3f(dx + quad2[0], dy + quad2[1], dz + quad2[2]);
+    glVertex3f(dx + quad3[0], dy + quad3[1], dz + quad3[2]);
+    glVertex3f(dx + quad4[0], dy + quad4[1], dz + quad4[2]);
    glEnd();
 
 }
@@ -54,7 +54,7 @@ void GeoQuad::drawGroundorTop(float s, float h){
 
  * dx, dy, dz sind die Werte, welche den Würfel verschieben
  */
-void GeoQuad::drawQuads(float s, float h){
+float* GeoQuad::drawQuads(float s, float h){
      //Startkoordinate ergibt sich durch die hälfte der Seitenlänge,
     //damit das Koordinatensystem in der Mitte des Würfels ist.
 
@@ -79,15 +79,21 @@ void GeoQuad::drawQuads(float s, float h){
 
    glBegin(GL_QUADS);
     glColor3f(red, yellow, blue);
-    glVertex3f(quad1[0], quad1[1], quad1[2]);
-    glVertex3f(quad2[0], quad2[1], quad2[2]);
-    glVertex3f(quad3[0], quad3[1], quad3[2]);
-    glVertex3f(quad4[0], quad4[1], quad4[2]);
+    glVertex3f(dx + quad1[0], dy + quad1[1], dz + quad1[2]);
+    glVertex3f(dx + quad2[0], dy + quad2[1], dz + quad2[2]);
+    glVertex3f(dx + quad3[0], dy + quad3[1], dz + quad3[2]);
+    glVertex3f(dx + quad4[0], dy + quad4[1], dz + quad4[2]);
     glEnd();
+
+   quad4[0] = dx + quad4[0];
+   quad4[1] = dy + quad4[1];
+   quad4[2] = dz + quad4[2];
+
+    return quad2;
 }
 
 
-void GeoQuad::drawCube(float r, float y, float b, float s, float h, float dx, float dy, float dz, bool top){
+float* GeoQuad::drawCube(float r, float y, float b, float s, float h, float cubesheight, int cubesSideCounter, float dx, float dy, float dz, bool top){
     //Höhe der Teildreiecke
     this->red = r;
     this->yellow = y;
@@ -98,16 +104,32 @@ void GeoQuad::drawCube(float r, float y, float b, float s, float h, float dx, fl
     this->dy = dy;
     this->dz = dz;
     this->top = top;
-    this->counter = 1;
 
-    drawGroundorTop(s, 0);
-    for(int i = 1; i < 5; i++){
-        this->counter = i;
-        drawQuads(s,h);
+    float* endpoints = new float[4];
+    endpoints[0] = 0;
+    endpoints[1] = 0;
+    endpoints[2] = 0;
+    endpoints[3] = 0;
+
+    if(this->counter == 1){
+     // drawGroundorTop(s, 0);
     }
+
+    float maxHeight = h*(cubesheight-1);
+    for(int i = 0; i < maxHeight; i++){
+     for(int x = 1; x < 5; x++){
+          drawQuads(s,h);
+          this->counter = x;
+       }
+    }
+
+    this->dy = h * (cubesheight-1);
+    this->counter = cubesSideCounter;
+     endpoints = drawQuads(s,h);
 
     if(top == true){
-       drawGroundorTop(s, h);
+      drawGroundorTop(s, h);
     }
 
+    return endpoints;
 }

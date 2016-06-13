@@ -12,7 +12,7 @@ public:
     float* drawKegel( float radius, float height, float heightCounter, float kegelBreite, float dx, float dy, float dz);
 
 private:
-    float* drawQuad(float radius, float hoehe, float alpha);
+    float* drawQuad(float radius, float alpha, float beta, float breite);
     void drawTriangle(float radius);
 
     float red;
