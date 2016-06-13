@@ -48,14 +48,9 @@ void MainWindow::onChangeRotation(int dx, int dy, int dz)
     int newz = ui->sliderZ->value() + dz;
 
     // ... and set the sliders to the new angles mod 360 (to ensure 0..359)
-    ui->xRot->setValue( newx % 360 );
-    ui->yRot->setValue( newy % 360 );
-    ui->zRot->setValue( newz % 360 );
-
     ui->sliderX->setValue( newx % 360 );
     ui->sliderY->setValue( newy % 360 );
     ui->sliderZ->setValue( newz % 360 );
->>>>>>> origin/newRoboterarms
     // NB: SetValue will emit valueChanged signal, so the scene gets updated
 }
 
