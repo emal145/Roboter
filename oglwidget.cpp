@@ -26,7 +26,6 @@ OGLWidget::OGLWidget(QWidget *parent)
     form = 0;
     qubeCounter = 0;
     qubeSideCounter = 1;
-    qubeSidePartCounter = 0;
     qubeTop = false;
     kegelHoehe = 0;
     kegelBreite = 360;
@@ -57,7 +56,7 @@ void OGLWidget::setForm(){
         //Würfel
     } else if (form ==1){
         for(int i = 0; i < 4; i++){
-        roboter.calculatRotations(quader.drawCube(0.0,0.0,1.0,s,h,qubeCounter, qubeSideCounter,qubeSidePartCounter,1.0,0.0,1.0, qubeTop));
+        roboter.calculatRotations(quader.drawCube(0.0,0.0,1.0,s,h,qubeCounter, qubeSideCounter,1.0,0.0,1.0, qubeTop));
         }
     //Zylinder
     } else if (form ==2){
@@ -84,12 +83,7 @@ void OGLWidget::stepAnimation()
               qubeTop = true;
               animtimer->stop();
         }
-        //qubeSidePartCounter++;
-        qubeSidePartCounter == 2;
-        if(qubeSidePartCounter == 2){
-            qubeSidePartCounter = 0;
-            qubeSideCounter++;
-        }
+        qubeSideCounter++;
         if(qubeSideCounter > 4){
             qubeSideCounter = 1;
             qubeCounter++;

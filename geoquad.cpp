@@ -14,7 +14,7 @@ GeoQuad::GeoQuad()
     top = false;
 }
 
-float* GeoQuad::drawGroundorTop(float s, float h, int sidePartCounter){
+float* GeoQuad::drawGroundorTop(float s, float h){
     float *quad1 = new float[3];
     float *quad2 = new float[3];
     float *quad3 = new float[3];
@@ -61,32 +61,22 @@ float* GeoQuad::drawGroundorTop(float s, float h, int sidePartCounter){
 
  * dx, dy, dz sind die Werte, welche den Würfel verschieben
  */
-float* GeoQuad::drawQuads(float s, float h, float stepheight, int sideCounter, int sidePartCounter){
+float* GeoQuad::drawQuads(float s, float h, float stepheight, int sideCounter){
     float *quad1 = new float[3];
     float *quad2 = new float[3];
     float *quad3 = new float[3];
     float *quad4 = new float[3];
 
     rotationsmatrix rotm = rotationsmatrix();
-        if(sidePartCounter == 0){
-            quad1 = rotm.rotatey(1.0, s, 0.0, 0.0, 0.0);
-            quad2 = rotm.rotatey(1.0, s, 0.0, s/2, 0.0);
-            quad3 = rotm.rotatey(1.0, s, h, s/2, 0.0 );
-            quad4 = rotm.rotatey(1.0, s, h, 0.0, 0.0 );
+         quad1 = rotm.rotatey(1.0, s, 0.0, 0.0, 0.0);
+         quad2 = rotm.rotatey(1.0, s, 0.0, s, 0.0);
+         quad3 = rotm.rotatey(1.0, s, h, s, 0.0 );
+         quad4 = rotm.rotatey(1.0, s, h, 0.0, 0.0 );
 
-        }else{
-            quad1 = rotm.rotatey(1.0, s, 0.0, 0.0, 0.0);
-            quad2 = rotm.rotatey(1.0, s, 0.0, s, 0.0);
-            quad3 = rotm.rotatey(1.0, s, h, s, 0.0 );
-            quad4 = rotm.rotatey(1.0, s, h, 0.0, 0.0 );
-
-        }
-
-
-        quad1 = rotm.rotatey(s/2, quad1[0], quad1[1], quad1[2], (sideCounter*90));
-        quad2 = rotm.rotatey(s/2, quad2[0], quad2[1], quad2[2], (sideCounter*90));
-        quad3 = rotm.rotatey(s/2, quad3[0], quad3[1], quad3[2], (sideCounter*90));
-        quad4 = rotm.rotatey(s/2, quad4[0], quad4[1], quad4[2], (sideCounter*90));
+        quad1 = rotm.rotatey(s, quad1[0], quad1[1], quad1[2], (sideCounter*90));
+        quad2 = rotm.rotatey(s, quad2[0], quad2[1], quad2[2], (sideCounter*90));
+        quad3 = rotm.rotatey(s, quad3[0], quad3[1], quad3[2], (sideCounter*90));
+        quad4 = rotm.rotatey(s, quad4[0], quad4[1], quad4[2], (sideCounter*90));
 
         quad1[1] = quad1[1] + dy + stepheight;
         quad2[1] = quad2[1] + dy + stepheight;
@@ -130,7 +120,7 @@ float* GeoQuad::drawQuads(float s, float h, float stepheight, int sideCounter, i
 }
 
 
-float* GeoQuad::drawCube(float r, float y, float b, float s, float h, int qubescounter, int sideCounter, int sidePartCounter, float dx, float dy, float dz, bool top){
+float* GeoQuad::drawCube(float r, float y, float b, float s, float h, int qubescounter,int sideCounter, float dx, float dy, float dz, bool top){
     //Höhe der Teildreiecke
     this->red = r;
     this->yellow = y;
@@ -152,22 +142,20 @@ float* GeoQuad::drawCube(float r, float y, float b, float s, float h, int qubesc
     float newHeight = h/30;
     for(int i = 0; i <= (qubescounter-1); i++){
         for(int x = 1; x <= 4; x++){
-            drawQuads(s, newHeight, newHeight*i, x, sidePartCounter);
+            drawQuads(s, newHeight, newHeight*i, x);
          if(this->counter == 1){
-             drawGroundorTop(s, 0, sidePartCounter);
+             drawGroundorTop(s, 0);
              counter++;
           }
         }
-
     }
 
     for(int x = 1; x <= sideCounter; x++){
-     endpoints = drawQuads(s, newHeight, newHeight*(qubescounter), x, sidePartCounter);
+     endpoints = drawQuads(s, newHeight, newHeight*(qubescounter), x);
     }
 
     if(top == true){
-      endpoints = drawGroundorTop(s, h, sidePartCounter
-                                  );
+      endpoints = drawGroundorTop(s, h);
     }
 
     return endpoints;
