@@ -14,7 +14,6 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     oglwidget.cpp \
-    table.cpp \
     kugel.cpp \
     rotationsmatrix.cpp \
     robotarm.cpp \
@@ -24,12 +23,10 @@ SOURCES += main.cpp\
     geokugel.cpp \
     quader.cpp \
     kegel.cpp \
-    geokegel.cpp \
     geozylinder.cpp
 
 HEADERS  += mainwindow.h \
     oglwidget.h \
-    table.h \
     kugel.h \
     robotarm.h \
     rotationsmatrix.h \
@@ -39,7 +36,6 @@ HEADERS  += mainwindow.h \
     geokugel.h \
     quader.h \
     kegel.h \
-    geokegel.h \
     geozylinder.h
 
 FORMS    += mainwindow.ui

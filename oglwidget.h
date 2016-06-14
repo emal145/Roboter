@@ -5,11 +5,9 @@
 #include <QOpenGLFunctions>
 #include <QMouseEvent>
 #include <QTimer>
-#include "table.h"
 #include "geokugel.h"
 #include "geoquad.h"
 #include "robot.h"
-#include "geoKegel.h"
 #include "geozylinder.h"
 
 class OGLWidget : public QOpenGLWidget,
@@ -60,10 +58,8 @@ protected:
     int unfold;     // Unfolding position (0..100, 0 closed)
     QPoint lastpos; // Last position of mouse pressed, used for dragging
     int frames;
-    table t;
     geokugel gkugel;
     kugel k;
-    geoKegel kegel;
     geozylinder zy;
     double alpha;
     double beta;

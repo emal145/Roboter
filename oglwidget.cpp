@@ -19,8 +19,7 @@ OGLWidget::OGLWidget(QWidget *parent)
     quader = GeoQuad();
     gkugel = geokugel(1.0,0.0,0.0);
     k = kugel(1.0,0.0,0.0);
-    zy = geozylinder(1.0,1.0,1.0);
-    kegel = geoKegel(0.0,1.0,0.0);
+    zy = geozylinder(0,0.9,0.3);
     s = 2.0;
     h = 2.0;
     form = 0;
