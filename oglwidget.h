@@ -78,6 +78,7 @@ protected:
     int zylinderBreite;
     int zylinderCounter;
     int qubeSideCounter;
+    int qubeSidePartCounter;
     int form;
     GeoQuad quader;
     bool qubeTop;

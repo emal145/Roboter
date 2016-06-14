@@ -84,7 +84,6 @@ float* geozylinder::drawQuad(float radius, float height, float stepheight, int b
 }
 
 float* geozylinder::drawZylinder(float radius, float height, int counter, int breite, float dx, float dy, float dz){
-   drawBoden(radius, dx, dy, dz);
    float *endpoints = new float[4];
    endpoints[0] = 0.0;
    endpoints[1] = 0.0;
@@ -92,8 +91,11 @@ float* geozylinder::drawZylinder(float radius, float height, int counter, int br
    endpoints[3] = 0.0;
 
    float newheight = height/30;
-   for(int i = 0; i < (counter-1); i++){
+   for(int i = 0; i <= (counter-1); i++){
       drawQuad(radius, newheight, newheight*i, 360, dx, dy, dz);
+      if(i == 0){
+          drawBoden(radius, dx, dy, dz);
+      }
    }
    endpoints = drawQuad(radius, newheight, newheight*(counter-1), breite, dx, dy, dz);
 

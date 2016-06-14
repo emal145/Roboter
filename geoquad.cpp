@@ -14,7 +14,7 @@ GeoQuad::GeoQuad()
     top = false;
 }
 
-void GeoQuad::drawGroundorTop(float s, float h){
+float* GeoQuad::drawGroundorTop(float s, float h, int sidePartCounter){
     float *quad1 = new float[3];
     float *quad2 = new float[3];
     float *quad3 = new float[3];
@@ -49,6 +49,8 @@ void GeoQuad::drawGroundorTop(float s, float h){
         glVertex3f(quad3[0],quad3[1], quad3[2]);
         glVertex3f(quad4[0],quad4[1], quad4[2]);
         glEnd();
+
+        return quad4;
 }
 
 /* Methode zum Zeichnen eines 3D-Vierecks
@@ -59,18 +61,27 @@ void GeoQuad::drawGroundorTop(float s, float h){
 
  * dx, dy, dz sind die Werte, welche den Würfel verschieben
  */
-float* GeoQuad::drawQuads(float s, float h, float stepheight, int sideCounter){
+float* GeoQuad::drawQuads(float s, float h, float stepheight, int sideCounter, int sidePartCounter){
     float *quad1 = new float[3];
     float *quad2 = new float[3];
     float *quad3 = new float[3];
     float *quad4 = new float[3];
 
     rotationsmatrix rotm = rotationsmatrix();
+        if(sidePartCounter == 0){
+            quad1 = rotm.rotatey(1.0, s, 0.0, 0.0, 0.0);
+            quad2 = rotm.rotatey(1.0, s, 0.0, s/2, 0.0);
+            quad3 = rotm.rotatey(1.0, s, h, s/2, 0.0 );
+            quad4 = rotm.rotatey(1.0, s, h, 0.0, 0.0 );
 
-        quad1 = rotm.rotatey(1.0, s, 0.0, 0.0, 0.0);
-        quad2 = rotm.rotatey(1.0, s, 0.0, s, 0.0);
-        quad3 = rotm.rotatey(1.0, s, h, s, 0.0 );
-        quad4 = rotm.rotatey(1.0, s, h, 0.0, 0.0 );
+        }else{
+            quad1 = rotm.rotatey(1.0, s, 0.0, 0.0, 0.0);
+            quad2 = rotm.rotatey(1.0, s, 0.0, s, 0.0);
+            quad3 = rotm.rotatey(1.0, s, h, s, 0.0 );
+            quad4 = rotm.rotatey(1.0, s, h, 0.0, 0.0 );
+
+        }
+
 
         quad1 = rotm.rotatey(s/2, quad1[0], quad1[1], quad1[2], (sideCounter*90));
         quad2 = rotm.rotatey(s/2, quad2[0], quad2[1], quad2[2], (sideCounter*90));
@@ -119,7 +130,7 @@ float* GeoQuad::drawQuads(float s, float h, float stepheight, int sideCounter){
 }
 
 
-float* GeoQuad::drawCube(float r, float y, float b, float s, float h, int qubescounter, int sideCounter, float dx, float dy, float dz, bool top){
+float* GeoQuad::drawCube(float r, float y, float b, float s, float h, int qubescounter, int sideCounter, int sidePartCounter, float dx, float dy, float dz, bool top){
     //Höhe der Teildreiecke
     this->red = r;
     this->yellow = y;
@@ -130,6 +141,7 @@ float* GeoQuad::drawCube(float r, float y, float b, float s, float h, int qubesc
     this->dy = dy;
     this->dz = dz;
     this->top = top;
+    this->counter = 1;
 
     float* endpoints = new float[4];
     endpoints[0] = 0;
@@ -137,23 +149,25 @@ float* GeoQuad::drawCube(float r, float y, float b, float s, float h, int qubesc
     endpoints[2] = 0;
     endpoints[3] = 0;
 
-    if(this->counter == 1){
-      drawGroundorTop(s, 0);
-    }
-
     float newHeight = h/30;
-    for(int i = 0; i < (qubescounter-1); i++){
+    for(int i = 0; i <= (qubescounter-1); i++){
         for(int x = 1; x <= 4; x++){
-         drawQuads(s, newHeight, newHeight*i, x);
+            drawQuads(s, newHeight, newHeight*i, x, sidePartCounter);
+         if(this->counter == 1){
+             drawGroundorTop(s, 0, sidePartCounter);
+             counter++;
+          }
         }
+
     }
 
     for(int x = 1; x <= sideCounter; x++){
-     endpoints = drawQuads(s, newHeight, newHeight*(qubescounter-1), x);
+     endpoints = drawQuads(s, newHeight, newHeight*(qubescounter), x, sidePartCounter);
     }
 
     if(top == true){
-      drawGroundorTop(s, h);
+      endpoints = drawGroundorTop(s, h, sidePartCounter
+                                  );
     }
 
     return endpoints;
