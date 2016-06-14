@@ -55,11 +55,11 @@ void OGLWidget::setForm(){
         //Würfel
     } else if (form ==1){
         for(int i = 0; i < 4; i++){
-        roboter.calculatRotations(quader.drawCube(0.0,0.0,1.0,s,h,qubeCounter, qubeSideCounter,1.0,0.0,1.0, qubeTop));
+        roboter.calculatRotations(quader.drawCube(0.0,0.0,1.0,s,h,qubeCounter, qubeSideCounter,0.0,0.0,3.5, qubeTop));
         }
     //Zylinder
     } else if (form ==2){
-        roboter.calculatRotations(zy.drawZylinder(1.0, 2.0, zylinderCounter, zylinderBreite, 2.0,0.0,2.0));
+        roboter.calculatRotations(zy.drawZylinder(1.0, 2.0, zylinderCounter, zylinderBreite, 0.0,0.0,4.0));
     }
 }
 
@@ -71,7 +71,7 @@ void OGLWidget::stepAnimation()
         if(kreisHoehe < 90){
             animtimer->stop(); //TimerStop
         }
-        kreisBreite = kreisBreite - 30;
+        kreisBreite = kreisBreite - 60;
         if(kreisBreite == 0){
             kreisBreite = 360;
             kreisHoehe = kreisHoehe-4;
@@ -259,7 +259,8 @@ void OGLWidget::paintGL()
     //zy.drawZylinder(1.0, 2.0, 15, 160, 0.0,0.0,0.0);
     //quader.drawCube(0.0,0.0,1.0,2.0,2.0,30,2,1,0, qubeTop);
 
-    //X-Achse
+    /*
+     //X-Achse
     glBegin(GL_QUADS);
      glColor3f(0.0, 0.0, 1.0);
      glVertex3f(0.0,0.0,0.0);
@@ -285,7 +286,7 @@ void OGLWidget::paintGL()
      glVertex3f(0.1,0.0,20.0);
      glVertex3f(0.0,0.0,20.0);
     glEnd();
-
+*/
 }
 
 void OGLWidget::resizeGL(int w, int h)
