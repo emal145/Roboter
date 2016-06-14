@@ -178,7 +178,7 @@ void OGLWidget::initializeGL()
 {
     initializeOpenGLFunctions();
 
-    glClearColor(0,0,0,1);
+    glClearColor(0.3,0.3,0.3,1);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_COLOR_MATERIAL);
     glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
@@ -205,11 +205,25 @@ void OGLWidget::initializeGL()
     glEnable(GL_LIGHT2);
     glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
     glEnable(GL_COLOR_MATERIAL);
+
+
    */
 
+    glEnable(GL_LIGHTING);
+    float light_pos[] = { 0.f, 25.f, 0.f, 1.f };
+    glLightfv(GL_LIGHT1, GL_POSITION, light_pos );
+
+    float light_diffuse[] = { .1f, .1f, .1f, 1.f };
+    glLightfv(GL_LIGHT1, GL_DIFFUSE,  light_diffuse );
+    float light_ambient[] = { .8f, .8f, .8f, 1.f };
+    glLightfv(GL_LIGHT1, GL_AMBIENT,  light_ambient );
+
+    glEnable(GL_LIGHT1);
+    glColorMaterial( GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE );
+
+    glEnable(GL_COLOR_MATERIAL);
     glOrtho(-50,50,-50,50,2,10);
 
-    // For wireframe replace GL_FILL with GL_LINE
     glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
